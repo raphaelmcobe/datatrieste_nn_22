@@ -1,56 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-	<meta name="generator" content="Hugo 0.101.0" />
     <meta charset="utf-8">
-<title>Introduction to Artificial Neural Networks</title>
-<meta name="description" content="Intro to ANN Presentation">
+<title>Logo presentation example</title>
+
 <meta name="author" content="Raphael Cobe">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="./reveal-js/css/reset.css">
-<link rel="stylesheet" href="./reveal-js/css/reveal.css"><link rel="stylesheet" href="./reveal-hugo/themes/robot-lung.css" id="theme"><link rel="stylesheet" href="./highlight-js/mono-blue.min.css">
+<link rel="stylesheet" href="./reveal-js/css/reveal.css"><link rel="stylesheet" href="./reveal-hugo/themes/robot-lung.css" id="theme"><link rel="stylesheet" href="./highlight-js/default.min.css">
     
-
-<style>
- 
-.reveal section pre {
-  box-shadow: none;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  border: 1px solid lightgrey;
-}
-.reveal section pre:hover {
-  border: 1px solid grey;
-  transition: border 0.3s ease;
-}
-.reveal section pre > code {
-  padding: 10px;
-}
-.reveal table {
-  font-size: 0.65em;
-}
- 
-.reveal section.side-by-side h1 {
-  position: absolute;
-}
-.reveal section.side-by-side h1:first-of-type {
-  left: 25%;
-}
-.reveal section.side-by-side h1:nth-of-type(2) {
-  right: 25%;
-}
-.reveal section[data-background-image] a,
-.reveal section[data-background-image] p,
-.reveal section[data-background-image] h2 {
-  color: white;
-}
-.reveal section[data-background-image] a {
-  text-decoration: underline;
-}
-</style>
-
   </head>
   <body>
     
@@ -62,14 +22,68 @@
         width: 15%;
       }
     </style>
-    <img id="logo" src="logo_ai2.png" alt="Advanced Institute for Artificial Intelligence">
+    <img id="logo" src="github-logo.png" alt="">
     
     <div class="reveal">
       <div class="slides">
   
 
-    <section><h1 id="introduction-to-neural-networks">Introduction to Neural Networks</h1>
-<p>~ by <a href="mailto:cobe@advancedinstitute.ai">@raphaelmcobe</a> ~</p>
+    <section><h2 id="logo-example">logo-example</h2>
+<p>This presentation shows how to add a logo to each slide, like the GitHub one you see above.</p>
+<p>You can generalize the concept to add any additional markup to your presentations.</p>
+</section><section>
+<p><a href="https://github.com/dzello/reveal-hugo/blob/master/exampleSite/content/logo-example">See the code for this presentation</a></p>
+</section><section>
+<p>For a basic setup, in the front matter, add an image to the presentation&rsquo;s directory.</p>
+<p>Then, add a logo section in the front matter:</p>
+<pre><code class="language-toml">[logo]
+src = &quot;github-logo.png&quot;
+</code></pre>
+<p>The front matter should end up looking like this:</p>
+<pre><code class="language-toml">+++
+title = &quot;Logo presentation example&quot;
+outputs = [&quot;Reveal&quot;]
+[logo]
+src = &quot;github-logo.png&quot;
++++
+</code></pre>
+</section><section>
+<p>If the logo placement doesn&rsquo;t quite match your needs, you may customize it with the following paramaters:</p>
+<pre><code class="language-toml">[logo]
+src = &quot;github-logo.png&quot; # Location of the file displayed.
+alt = &quot;&quot; # Alt text. 
+width = &quot;15%&quot; # Size of the file.
+diag = &quot;1%&quot; # How far from the top right should the file be.
+top = &quot;1%&quot; # Overrides diag.
+right = &quot;1%&quot; # Overrides diag.
+</code></pre>
+<ul>
+<li>
+<p>Instead of absolute (<code>250px</code>), relative measurements (<code>12.5%</code>) should be used. They work better with different screen sizes.</p>
+</li>
+<li>
+<p>By default, null (<code>&quot;&quot;</code>) is used as alt text for logos, as otherwise the alt text would unnecessarily get read by screen readers.</p>
+</li>
+</ul>
+</section><section>
+<p>💡 Tip: to make the logo settings present on every presentation, add the settings to your site&rsquo;s configuration file <code>config.toml</code> under <code>[params.logo]</code>:</p>
+<pre><code class="language-toml">[params.logo]
+src = &quot;/img/logo.png&quot;
+</code></pre>
+<p>Note that now, the path to the logo file shall be absolute, and should be stored in <code>static/img/logo.png</code> instead.</p>
+</section><section>
+<p>Depending on the theme you&rsquo;re using, your styles will be different. <br>You may also prefer to put your CSS in an external file or your Reveal.js theme.</p>
+<p>For per-presentation override, you may add custom CSS with the ID <code>#logo</code> to:</p>
+<pre><code class="language-text">layouts/partials/{section}/reveal-hugo/body.html
+</code></pre>
+<p>Substitute <code>{section}</code> for <code>home</code> if you are adding a logo to the presentation at <code>content/_index.md</code>. Otherwise, substitute the name of the Hugo section where your presentation lives.</p>
+<p>For a site-wide override, use:</p>
+<pre><code class="language-text">layouts/partials/{section}/reveal-hugo/body.html
+</code></pre>
+</section><section>
+<h1 id="heading">🤗</h1>
+<p>That&rsquo;s it.</p>
+<p>Happy Hugo-ing!</p>
 </section>
 
   
@@ -1112,10 +1126,6 @@ model.add(Dropout(0.5))
 
 </div>
       
-<div class="line top"></div>
-<div class="line bottom"></div>
-
-
 
     </div>
 <script type="text/javascript" src=./reveal-hugo/object-assign.js></script>
@@ -1131,7 +1141,7 @@ model.add(Dropout(0.5))
 </script>
 
 <script type="application/json" id="reveal-hugo-site-params">{"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}}</script>
-<script type="application/json" id="reveal-hugo-page-params">{"custom_theme":"reveal-hugo/themes/robot-lung.css","highlight_theme":"mono-blue","margin":0,"templates":{"hotpink":{}},"transition":"slide","transition_speed":"fast"}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"custom_theme":"reveal-hugo/themes/robot-lung.css","margin":0.2}</script>
 
 <script src="./reveal-js/js/reveal.js"></script>
 
@@ -1215,40 +1225,14 @@ model.add(Dropout(0.5))
   </script>
 
     
-    
-
-
-<script type="text/javascript">
-
-Reveal.addEventListener('slidechanged', function(event) {
-  console.log("🎞️ Slide is now " + event.indexh);
-});
-</script>
-
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  },
-  svg: {
-    fontCache: 'global'
-  }
-};
-</script>
-
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-</script>
-
-<style>
+    <style>
   #logo {
     position: absolute;
-    top: 30px;
-    left: 83%;
-    width: 320px;
+    top: 20px;
+    left: 20px;
+    width: 250px;
   }
 </style>
-<img id="logo" src="logo_ai2.png" alt="Advanced Institute for Artificial Intelligence">
-
+<img id="logo" src="github-logo.png" alt="">
   </body>
 </html>

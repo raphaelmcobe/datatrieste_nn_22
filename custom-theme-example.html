@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Custom theme example presentation</title>
+
+<meta name="author" content="Raphael Cobe">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./reveal-js/css/reset.css">
+<link rel="stylesheet" href="./reveal-js/css/reveal.css">
+  <link rel="stylesheet" href="./_.min.d24365b035d38604180e3941c35e00f65facd9b02cbf18959e25835195f30d49.css" id="theme"><link rel="stylesheet" href="./highlight-js/default.min.css">
+    
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h2 id="-">🖌 ️</h2>
+<h2 id="custom-themes">Custom Themes</h2>
+<p><em>with Hugo Pipes</em></p>
+</section><section>
+<p>This presentation uses a custom Reveal.js theme written in SCSS that is compiled by Hugo, using <a href="https://gohugo.io/hugo-pipes/">Hugo pipes</a>.</p>
+</section><section>
+<p>Hugo pipes compiles the source code of the theme, located in <code>assets/custom-theme.scss</code>, into CSS.</p>
+</section><section>
+<h2 id="heading">😄</h2>
+<p>No separate build process is required, which means you can iterate on your theme and your content at the same time.</p>
+</section><section>
+<p>To set a custom theme and use Hugo to compile it:</p>
+<pre><code class="language-toml">[reveal_hugo]
+custom_theme = &quot;custom-theme.scss&quot;
+custom_theme_compile = true
+</code></pre>
+<p><code>custom-theme.scss</code> must live in the <code>assets</code> folder.</p>
+</section><section>
+<p>To pass compilation options, use the <code>custom_theme_options</code> param:</p>
+<pre><code class="language-toml">[reveal_hugo.custom_theme_options]
+targetPath = &quot;css/custom-theme.css&quot;
+enableSourceMap = true
+</code></pre>
+<p>See all the <a href="https://gohugo.io/hugo-pipes/scss-sass/#options">available options</a>.</p>
+</section><section>
+<p>Note: to use a custom theme that doesn&rsquo;t need compilation, put it in the <code>static</code> directory and do not set the <code>custom_theme_compile</code> parameter. It will be served to the browser directly.</p>
+</section><section>
+<p>Write a custom Reveal.js theme in four steps:</p>
+<pre><code class="language-text">1. Import `mixins` and `settings` from the templates directory
+2. Override variables and functions for colors, fonts and sizes
+3. Import `theme` from the templates directory
+4. Add any additional selectors to override the built CSS
+</code></pre>
+</section><section>
+<p>See the <a href="https://github.com/hakimel/reveal.js/blob/master/css/theme/README.md">Reveal.js theme docs</a> to learn what overrides are possible.</p>
+</section><section>
+<p>See <code>assets/custom-theme.scss</code> or any file in <code>assets/reveal-js/css/theme/source</code> for an example.</p>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=./reveal-hugo/object-assign.js></script>
+
+<a href="./reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true}</script>
+
+<script src="./reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="./reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="./reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="./reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="./reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="./reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({startOnLoad: false});
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    
+    
+  </body>
+</html>
