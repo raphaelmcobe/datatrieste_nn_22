@@ -1,4 +1,3 @@
-
 ## Neural Networks
 
 * Neurons as structural constituents of the brain <a href="http://hobertlab.org/wp-content/uploads/2014/10/Andres-Barquin_Cajal_2001.pdf" target="_blank">[Ramón y Cajál, 1911]</a>; 

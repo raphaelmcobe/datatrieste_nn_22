@@ -22,3 +22,13 @@ MathJax = {
 <script type="text/javascript" id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
 </script>
+
+<style>
+  #logo {
+    position: absolute;
+    top: 30px;
+    left: 83%;
+    width: 320px;
+  }
+</style>
+<img id="logo" src="{{ .Param "logo.src" }}" alt="{{ .Param "logo.alt" }}">
