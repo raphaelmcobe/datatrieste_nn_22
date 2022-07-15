@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>plugin-example</title>
+<meta name="description" content="Shows how a Reveal.js plugin can be added and used">
+<meta name="author" content="Josh Dzielak">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/reveal-js/css/reveal.css"><link rel="stylesheet" href="/reveal-js/css/theme/night.css" id="theme">
+<link rel="stylesheet" href="/highlight-js/default.min.css">
+    <link rel="stylesheet" href="/plugin/gallery/gallery.css">
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="plugin-example">plugin-example</h1>
+</section><section>
+<p>This presentation demonstrates how a Reveal.js plugin can be added.</p>
+</section><section>
+<p>The plugin is called <a href="https://github.com/marcins/revealjs-simple-gallery">revealjs-simple-gallery</a>.</p>
+</section><section>
+<p>It can make any slide an image gallery. Here are a few examples.</p>
+</section><section>
+<ul class="gallery">
+  <li><img src="sample1.jpg" alt="Default settings (Photo by Oscar Fernandez Alonso on Flickr)"></li>
+  <li><img src="sample2.jpg" alt="Default settings (Photo by bullcitydogs on Flickr)"></li>
+  <li><img src="sample3.jpg" alt="Default settings (Photo by Lance McCord on Flickr)"></li>
+</ul>
+</section><section>
+<ul class="gallery" data-iterations="0" data-interval="1">
+  <li><img src="sample1.jpg" alt="Infinite iterations, fast transition (Photo by Oscar Fernandez Alonso on Flickr)"></li>
+  <li><img src="sample2.jpg" alt="Infinite iterations, fast transition (Photo by bullcitydogs on Flickr)"></li>
+  <li><img src="sample3.jpg" alt="Infinite iterations, fast transition (Photo by Lance McCord on Flickr)"></li>
+</ul>
+</section><section>
+<ul class="gallery" data-iterations="2" data-interval="2" data-mode="full-screen">
+  <li><img src="sample1.jpg" alt="Full screen, two iterations, slow transition (Photo by Oscar Fernandez Alonso on Flickr)"></li>
+  <li><img src="sample2.jpg" alt="Full screen, two iterations, slow transition (Photo by bullcitydogs on Flickr)"></li>
+  <li><img src="sample3.jpg" alt="Full screen, two iterations, slow transition (Photo by Lance McCord on Flickr)"></li>
+</ul>
+</section><section>
+<p>See the <a href="https://github.com/marcins/revealjs-simple-gallery">revealjs-simple-gallery GitHub repo</a> to learn about more customization options.</p>
+</section><section>
+<p>These were the steps to use this plugin for this reveal-hugo presentation.</p>
+</section><section>
+<h3 id="1">1</h3>
+<p>Copy the plugin CSS and JavaScript into the static directory</p>
+</section><section>
+<h3 id="2">2</h3>
+<p>Add the JavaScript file path to the <code>plugins</code> field in the front matter</p>
+</section><section>
+<h3 id="3">3</h3>
+<p>Create a <code>head.html</code> partial inside of <code>layouts/partials/plugin-example/reveal-hugo</code></p>
+</section><section>
+<h3 id="4">4</h3>
+<p>In <code>head.html</code>, add a stylesheet link tag that loads the plugin CSS</p>
+</section><section>
+<h2 id="the-end">THE END</h2>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+<a href="/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"margin":0.2,"plugins":["plugin/gallery/gallery.plugin.js"],"theme":"night"}</script>
+
+<script src="/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+<script type="text/javascript" src="/plugin/gallery/gallery.plugin.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({startOnLoad: false});
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    
+    
+  </body>
+</html>

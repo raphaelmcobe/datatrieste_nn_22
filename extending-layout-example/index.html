@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Extend layout with configuration</title>
+
+<meta name="author" content="Josh Dzielak">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/reveal-js/css/reveal.css"><link rel="stylesheet" href="/reveal-js/css/theme/night.css" id="theme">
+<link rel="stylesheet" href="/highlight-js/default.min.css"><link rel="stylesheet" href="/css/custom.css" id="custom_css">
+    
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h3 id="extending-an-existing-layout">Extending an existing layout</h3>
+<p>If you are using an existing theme and you want to a specific CSS class or add a dynamic function using javascript. It is possible to extend existing layout.</p>
+</section><section>
+<h3 id="extending-css">Extending CSS</h3>
+<p>You can use <code>partials</code> or you can specify <code>custom_css</code> in your configuration :</p>
+<pre><code class="language-toml">[reveal_hugo]
+custom_css = &quot;css/custom.css&quot;
+</code></pre>
+<small>
+The `custom.css` can be present in `static/css/custom.css`
+</small>
+</section><section>
+<h3 id="extending-with-javascript">Extending with javascript</h3>
+<p>Same as CSS you can extend your presentation with javascript using <code>partials</code> or with <code>custom_js</code> in your configuration:</p>
+<pre><code class="language-toml">[reveal_hugo]
+custom_js = &quot;js/custom.js&quot;
+</code></pre>
+<small>
+The `custom.js` can be present in `static/js/custom.js`
+</small>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="custom"
+      id="customjs">
+  
+<h2 id="extend-layout-example">Extend layout example</h2>
+<p>Here the slide has an additional css class <code>custom</code> using <code>slide</code> <em>shortcode</em>. This class is hosted in a custom CSS.</p>
+<p>If you click on this text background-color will using a custom javascript file.</p>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+<a href="/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"custom_css":"css/custom.css","custom_js":"js/custom.js","margin":0.2,"theme":"night"}</script>
+
+<script src="/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({startOnLoad: false});
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+<script type="text/javascript" src="/js/custom.js"></script>
+    
+    
+  </body>
+</html>

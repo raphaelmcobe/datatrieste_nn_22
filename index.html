@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<meta name="generator" content="Hugo 0.101.0" />
+    <meta charset="utf-8">
+<title>Introduction to Artificial Neural Networks</title>
+<meta name="description" content="Intro to ANN Presentation">
+<meta name="author" content="Josh Dzielak">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/reveal-js/css/reveal.css"><link rel="stylesheet" href="/reveal-hugo/themes/robot-lung.css" id="theme"><link rel="stylesheet" href="/highlight-js/mono-blue.min.css">
+    
+
+<style>
+ 
+.reveal section pre {
+  box-shadow: none;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border: 1px solid lightgrey;
+}
+.reveal section pre:hover {
+  border: 1px solid grey;
+  transition: border 0.3s ease;
+}
+.reveal section pre > code {
+  padding: 10px;
+}
+.reveal table {
+  font-size: 0.65em;
+}
+ 
+.reveal section.side-by-side h1 {
+  position: absolute;
+}
+.reveal section.side-by-side h1:first-of-type {
+  left: 25%;
+}
+.reveal section.side-by-side h1:nth-of-type(2) {
+  right: 25%;
+}
+.reveal section[data-background-image] a,
+.reveal section[data-background-image] p,
+.reveal section[data-background-image] h2 {
+  color: white;
+}
+.reveal section[data-background-image] a {
+  text-decoration: underline;
+}
+</style>
+
+  </head>
+  <body>
+    
+    <style>
+      #logo {
+        position: absolute;
+        top: 1%;
+        left: 1%;
+        width: 15%;
+      }
+    </style>
+    <img id="logo" src="logo_ai2.png" alt="Advanced Institute for Artificial Intelligence">
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="introduction-to-neural-networks">Introduction to Neural Networks</h1>
+<p>~ by <a href="mailto:cobe@advancedinstitute.ai">@raphaelmcobe</a> ~</p>
+</section>
+
+  
+
+    <section><h2 id="neural-networks">Neural Networks</h2>
+<ul>
+<li>Neurons as structural constituents of the brain <a href="http://hobertlab.org/wp-content/uploads/2014/10/Andres-Barquin_Cajal_2001.pdf" target="_blank">[Ramón y Cajál, 1911]</a>;</li>
+<li>Five to six orders of magnitude <em>slower than silicon logic gates</em>;</li>
+<li>In a silicon chip happen in the <em>nanosecond (on chip)</em> vs <em>millisecond range (neural events)</em>;</li>
+<li>A truly staggering number of neurons (nerve cells) with <em>massive interconnections between them</em>;</li>
+</ul>
+</section><section>
+<h2 id="neural-networks-1">Neural Networks</h2>
+<ul>
+<li>Receive input from other units and decides whether or not to fire;</li>
+<li>Approximately <em>10 billion neurons</em> in the human cortex, and <em>60 trillion synapses</em> or connections <a href="https://www.researchgate.net/publication/37597256_Biophysics_of_Computation_Neurons_Synapses_and_Membranes" target="_blank">[Shepherd and Koch, 1990]</a>;</li>
+<li>Energy efficiency of the brain is approximately $10^{−16}$ joules per operation per second against ~ $10^{−8}$ in a computer;</li>
+</ul>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      data-background-image="neuron2.png">
+  
+<h2 id="neurons">Neurons</h2>
+</section><section>
+<h2 id="neurons-1">Neurons</h2>
+<ul>
+<li>input signals from its <em>dendrites</em>;</li>
+<li>output signals along its (single) <em>axon</em>;</li>
+</ul>
+<img src="neuron1.png"/>
+
+
+
+<aside class="notes"><ul>
+<li>three major types of neurons: <em>sensory neurons</em>, <em>motor neurons</em>, and <em>interneurons</em></li>
+</ul>
+</aside>
+</section><section>
+<h2 id="neurons-2">Neurons</h2>
+<h3 id="how-do-they-work">How do they work?</h3>
+<ul>
+<div align="left">
+
+
+<span class='fragment ' > <li>Control the influence from one neuron on another:</li> </span>
+
+
+</div>
+<ul>
+<div align="left">
+
+
+<span class='fragment ' > <li><em>Excitatory</em> when weight is positive; or</li> </span>
+
+
+</div>
+<div align="left">
+
+
+<span class='fragment ' > <li><em>Inhibitory</em> when weight is negative;</li> </span>
+
+
+</div>
+</ul>
+<div align="left">
+
+
+<span class='fragment ' > <li>Nucleus is responsible for summing the incoming signals;</li> </span>
+
+
+</div>
+<div align="left">
+
+
+<span class='fragment ' > <li><strong>If the sum is above some threshold, then <em>fire!</em></strong></li> </span>
+
+
+</div>
+</ul>
+</section><section>
+<h2 id="neurons-3">Neurons</h2>
+<h3 id="artificial-neuron">Artificial Neuron</h3>
+<center><img src="artificial_neuron.jpeg" width="800px"/></center>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      data-background-image="neurons.png">
+  
+<h2 id="neural-networks-2">Neural Networks</h2>
+</section><section>
+<h2 id="neural-networks-3">Neural Networks</h2>
+<ul>
+<li>It appears that one reason why the human brain is <em>so powerful</em> is the
+sheer complexity of connections between neurons;</li>
+<li>The brain exhibits <em>huge degree of parallelism</em>;</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks">Artificial Neural Networks</h2>
+<ul>
+<li>Model each part of the neuron and interactions;</li>
+<li><em>Interact multiplicatively</em> (e.g. $w_0x_0$) with the dendrites of the other neuron based on the synaptic strength at that synapse (e.g. $w_0$ );</li>
+<li>Learn <em>synapses strengths</em>;</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-1">Artificial Neural Networks</h2>
+<h3 id="function-approximation-machines">Function Approximation Machines</h3>
+<ul>
+<li>Datasets as composite functions: $y=f^{*}(x)$
+<ul>
+<li>Maps $x$ input to a category (or a value) $y$;</li>
+</ul>
+</li>
+<li>Learn synapses weights and aproximate $y$ with $\hat{y}$:
+<ul>
+<li>$\hat{y} = f(x;w)$</li>
+<li>Learn the $w$ parameters;</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-2">Artificial Neural Networks</h2>
+<ul>
+<li>Can be seen as a directed graph with units (or neurons) situated at the vertices;
+<ul>
+<li>Some are <em>input units</em></li>
+</ul>
+</li>
+<li>Receive signal from the outside world;</li>
+<li>The remaining are named <em>computation units</em>;</li>
+<li>Each unit <em>produces an output</em>
+<ul>
+<li>Transmitted to other units along the arcs of the directed graph;</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-3">Artificial Neural Networks</h2>
+<ul>
+<li><em>Input</em>, <em>Output</em>, and <em>Hidden</em> layers;</li>
+<li>Hidden as in &ldquo;not defined by the output&rdquo;;</li>
+</ul>
+<center><img src="nn1.png" height="200px" style="margin-top:50px;"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-4">Artificial Neural Networks</h2>
+<h6 id="motivation-example-taken-from-jay-alammar-a-hrefhttpsjalammargithubiovisual-interactive-guide-basics-neural-networks-target_blankblog-posta">Motivation Example (taken from Jay Alammar <a href="https://jalammar.github.io/visual-interactive-guide-basics-neural-networks/" target="_blank">blog post</a>)</h6>
+<ul>
+<li>Imagine that you want to forecast the price of houses at your neighborhood;
+<ul>
+<li>After some research you found that 3 people sold houses for the following values:</li>
+</ul>
+</li>
+</ul>
+<br />
+<table>
+<thead>
+<tr>
+<th>Area (sq ft) (x)</th>
+<th>Price (y)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2,104</td>
+<td>$$399,900$</td>
+</tr>
+<tr>
+<td>1,600</td>
+<td>$$329,900$</td>
+</tr>
+<tr>
+<td>2,400</td>
+<td>$$369,000$</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="artificial-neural-networks-5">Artificial Neural Networks</h2>
+<h6 id="motivation-example-taken-from-jay-alammar-a-hrefhttpsjalammargithubiovisual-interactive-guide-basics-neural-networks-target_blankblog-posta-1">Motivation Example (taken from Jay Alammar <a href="https://jalammar.github.io/visual-interactive-guide-basics-neural-networks/" target="_blank">blog post</a>)</h6>
+<p>
+
+<span class='fragment ' >If you want to sell a 2K sq ft house, how much should ask for it?</span>
+
+
+<br /><br />
+
+
+<span class='fragment ' >How about finding the <em>average price per square feet</em>?</span>
+
+
+<br /><br />
+
+
+<span class='fragment ' ><em>$$180$ per sq ft.</em></span>
+
+</p>
+</section><section>
+<h2 id="artificial-neural-networks-6">Artificial Neural Networks</h2>
+<h6 id="motivation-example-taken-from-jay-alammar-a-hrefhttpsjalammargithubiovisual-interactive-guide-basics-neural-networks-target_blankblog-posta-2">Motivation Example (taken from Jay Alammar <a href="https://jalammar.github.io/visual-interactive-guide-basics-neural-networks/" target="_blank">blog post</a>)</h6>
+<ul>
+<li>Our very first neural network looks like this:
+
+
+<span class='fragment ' ><center><img src="nn2.png" width="600px"/></center> </span>
+
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-7">Artificial Neural Networks</h2>
+<h6 id="motivation-example-taken-from-jay-alammar-a-hrefhttpsjalammargithubiovisual-interactive-guide-basics-neural-networks-target_blankblog-posta-3">Motivation Example (taken from Jay Alammar <a href="https://jalammar.github.io/visual-interactive-guide-basics-neural-networks/" target="_blank">blog post</a>)</h6>
+<ul>
+<li>Multiplying $2,000$ sq ft by $180$ gives us $$360,000$.</li>
+<li>Calculating the prediction is simple multiplication.</li>
+<li><strong><em>We needed to think about the weight we’ll be multiplying by.</em></strong></li>
+<li>That is what training means!</li>
+</ul>
+<br />
+<table>
+<thead>
+<tr>
+<th>Area (sq ft) (x)</th>
+<th>Price (y)</th>
+<th>Estimated Price($\hat{y}$)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2,104</td>
+<td>$$399,900$</td>
+<td>$$378,720$</td>
+</tr>
+<tr>
+<td>1,600</td>
+<td>$$329,900$</td>
+<td>$$288,000$</td>
+</tr>
+<tr>
+<td>2,400</td>
+<td>$$369,000$</td>
+<td>$$432,000$</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="artificial-neural-networks-8">Artificial Neural Networks</h2>
+<h6 id="motivation-example-taken-from-jay-alammar-a-hrefhttpsjalammargithubiovisual-interactive-guide-basics-neural-networks-target_blankblog-posta-4">Motivation Example (taken from Jay Alammar <a href="https://jalammar.github.io/visual-interactive-guide-basics-neural-networks/" target="_blank">blog post</a>)</h6>
+<ul>
+<li>How bad is our model?
+<ul>
+<li>Calculate the <em>Error</em>;</li>
+<li>A better model is one that has less error;</li>
+</ul>
+</li>
+</ul>
+<p>
+
+<span class='fragment ' ><em>Mean Square Error</em></span>
+
+
+
+<span class='fragment ' >: $2,058$</span>
+
+</p>
+<br />
+<table>
+<thead>
+<tr>
+<th>Area (sq ft) (x)</th>
+<th>Price (y)</th>
+<th>Estimated Price($\hat{y}$)</th>
+<th>$y-\hat{y}$</th>
+<th>$(y-\hat{y})^2$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2,104</td>
+<td>$$399,900$</td>
+<td>$$378,720$</td>
+<td>$$21$</td>
+<td>$449$</td>
+</tr>
+<tr>
+<td>1,600</td>
+<td>$$329,900$</td>
+<td>$$288,000$</td>
+<td>$$42$</td>
+<td>$1756$</td>
+</tr>
+<tr>
+<td>2,400</td>
+<td>$$369,000$</td>
+<td>$$432,000$</td>
+<td>$$-63$</td>
+<td>$3969$</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="artificial-neural-networks-9">Artificial Neural Networks</h2>
+<ul>
+<li>Fitting the line to our data:</li>
+</ul>
+<center><img src="manual_training1.gif" width="450px"/></center>
+<p>Follows the equation: $\hat{y} = W * x$</p>
+</section><section>
+<h2 id="artificial-neural-networks-10">Artificial Neural Networks</h2>
+<p>How about addind the <em>Intercept</em>?</p>
+
+
+<span class='fragment ' >$\hat{y}=Wx + b$</span>
+
+
+</section><section>
+<h2 id="artificial-neural-networks-11">Artificial Neural Networks</h2>
+<h3 id="the-bias">The Bias</h3>
+<center><img src="nn3.png" width="500px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-12">Artificial Neural Networks</h2>
+<h3 id="try-to-train-it-manually">Try to train it manually:</h3>
+<iframe src="manual_NN1.html" height="500px" width="800px">
+</iframe>
+</section><section>
+<h2 id="artificial-neural-networks-13">Artificial Neural Networks</h2>
+<h3 id="how-to-discover-the-correct-weights">How to discover the correct weights?</h3>
+<ul>
+<li>Gradient Descent:
+<ul>
+<li>Finding the <em>minimum of a function</em>;
+<ul>
+<li>Look for the best weights values, <em>minimizing the error</em>;</li>
+</ul>
+</li>
+<li>Takes steps <em>proportional to the negative of the gradient</em> of the function at the current point.</li>
+<li>Gradient is a vector that is <em>tangent of a function</em> and points in the direction of greatest increase of this function.</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-14">Artificial Neural Networks</h2>
+<h3 id="gradient-descent">Gradient Descent</h3>
+<ul>
+<li>In mathematics, gradient is defined as <em>partial derivative for every input variable</em> of function;</li>
+<li><em>Negative gradient</em> is a vector pointing at the <em>greatest decrease</em> of a function;</li>
+<li><em>Minimize a function</em> by iteratively moving a little bit in the direction of negative gradient;</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-15">Artificial Neural Networks</h2>
+<h3 id="gradient-descent-1">Gradient Descent</h3>
+<ul>
+<li>With a single weight:</li>
+</ul>
+<center><img src="gd1.jpeg" width="500px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-16">Artificial Neural Networks</h2>
+<h3 id="gradient-descent-2">Gradient Descent</h3>
+<iframe src="manual_NN2.html" height="500px" width="800px">
+</iframe>
+</section><section>
+<h2 id="artificial-neural-networks-17">Artificial Neural Networks</h2>
+<h3 id="perceptron">Perceptron</h3>
+<ul>
+<li>In 1958, Frank Rosenblatt proposed an algorithm for training the perceptron.</li>
+<li>Simplest form of Neural Network;</li>
+<li>One unique neuron;</li>
+<li>Adjustable Synaptic weights</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-18">Artificial Neural Networks</h2>
+<h3 id="perceptron-1">Perceptron</h3>
+<ul>
+<li>Classification of observations into two classes:</li>
+</ul>
+<center><img src="perceptron1.png" height="350px"/></center>
+<h6 id="images-taken-from-a-hrefhttpstowardsdatasciencecomperceptron-learning-algorithm-d5db0deab975-target_blanktowards-data-sciencea">Images Taken from <a href="https://towardsdatascience.com/perceptron-learning-algorithm-d5db0deab975" target="_blank">Towards Data Science</a></h6>
+</section><section>
+<h2 id="artificial-neural-networks-19">Artificial Neural Networks</h2>
+<h3 id="perceptron-2">Perceptron</h3>
+<ul>
+<li>Classification of observations into two classes:</li>
+</ul>
+<center><img src="perceptron2.png" height="350px"/></center>
+<h6 id="images-taken-from-a-hrefhttpstowardsdatasciencecomperceptron-learning-algorithm-d5db0deab975-target_blanktowards-data-sciencea-1">Images Taken from <a href="https://towardsdatascience.com/perceptron-learning-algorithm-d5db0deab975" target="_blank">Towards Data Science</a></h6>
+</section><section>
+<h2 id="artificial-neural-networks-20">Artificial Neural Networks</h2>
+<h3 id="perceptron-3">Perceptron</h3>
+<ul>
+<li>E.g, the OR function:</li>
+</ul>
+<center><img src="or1.png" width="550px"/></center>
+<h4 id="find-the-w_i-values-that-could-solve-the-or-problem">Find the $w_i$ values that could solve the or problem.</h4>
+</section><section>
+<h2 id="artificial-neural-networks-21">Artificial Neural Networks</h2>
+<h3 id="perceptron-4">Perceptron</h3>
+<ul>
+<li>E.g, the OR function:</li>
+</ul>
+<br />
+<center><img src="or2.png" width="550px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-22">Artificial Neural Networks</h2>
+<h3 id="perceptron-5">Perceptron</h3>
+<ul>
+<li>One possible solution $w_0=-1$, $w_1=1.1$, $w_2=1.1$:</li>
+</ul>
+<center><img src="or4.png" width="450px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-23">Artificial Neural Networks</h2>
+<h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
+<ul>
+<li><em>High-level</em> neural networks API;</li>
+<li>Capable of running on top of <em>TensorFlow</em>, <em>CNTK</em>, or <em>Theano</em>;</li>
+<li>Focus on enabling <em>fast experimentation</em>;
+<ul>
+<li>Go from idea to result with the <em>least possible delay</em>;</li>
+</ul>
+</li>
+<li>Runs seamlessly on <em>CPU</em> and <em>GPU</em>;</li>
+<li>Compatible with: <em>Python 2.7-3.6</em>;</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-24">Artificial Neural Networks</h2>
+<h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka-1">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
+<ul>
+<li>Use the implementation of the tensorflow:
+<ul>
+<li>Create a sequential model (perceptron)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># Import the Sequential model
+from tensorflow.keras.models import Sequential
+
+# Instantiate the model
+model = Sequential()
+</code></pre>
+</section><section>
+<h2 id="artificial-neural-networks-25">Artificial Neural Networks</h2>
+<h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka-2">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
+<ul>
+<li>Create a single layer with a single neuron:
+<ul>
+<li><code>units</code> represent the number of neurons;</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># Import the Dense layer
+from tensorflow.keras.layers import Dense
+
+# Add a forward layer to the model 
+model.add(Dense(units=1, input_dim=2))
+</code></pre>
+
+
+
+<aside class="notes"><ul>
+<li>Dense means a fully connected layer.</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-26">Artificial Neural Networks</h2>
+<h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka-3">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
+<ul>
+<li>Compile and train the model
+<ul>
+<li>The compilation creates a <a
+href="https://medium.com/tebs-lab/deep-neural-networks-as-computational-graphs-867fcaa56c9" target="_blank">computational graph</a> of the training;</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"># Specify the loss function (error) and the optimizer 
+#   (a variation of the gradient descent method)
+model.compile(loss=&quot;mean_squared_error&quot;, optimizer=&quot;sgd&quot;)
+
+# Fit the model using the train data and also 
+#   provide the expected result
+model.fit(x=train_data_X, y=train_data_Y)
+</code></pre>
+
+
+
+<aside class="notes"><ul>
+<li>Computational Graphs:
+<ul>
+<li>Nodes represent both inputs and operations;</li>
+<li>Even relatively “simple” deep neural networks have hundreds of thousands of nodes and edges;</li>
+<li>Lots of operations can run in parallel;
+<ul>
+<li>Example: $(x<em>y)+(w</em>z)$</li>
+</ul>
+</li>
+<li>Makes it easier to create an auto diferentiation strategy;</li>
+</ul>
+</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-27">Artificial Neural Networks</h2>
+<h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka-4">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
+<ul>
+<li>Evaluate the quality of the model:</li>
+</ul>
+<pre><code class="language-python"># Use evaluate function to get the loss and other metrics that the framework 
+#  makes available 
+loss_and_metrics = model.evaluate(train_data_X, train_data_Y)
+print(loss_and_metrics)
+#0.4043288230895996
+
+# Do a prediction using the trained model
+prediction = model.predict(train_data_X)
+print(prediction)
+# [[-0.25007164]
+#  [ 0.24998784]
+#  [ 0.24999022]
+#  [ 0.7500497 ]]
+</code></pre>
+</section><section>
+<h2 id="artificial-neural-networks-28">Artificial Neural Networks</h2>
+<h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka-5">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
+<h4 id="exercise">Exercise:</h4>
+<p>Run the example of the Jupyter notebook:
+<br />
+<a href="https://colab.research.google.com/drive/1hNOR60jfru-b0Vb-ec-Y_yF9pyuy8Wtj" target="_blank">Perceptron - OR</a></p>
+</section><section>
+<h2 id="artificial-neural-networks-29">Artificial Neural Networks</h2>
+<h3 id="perceptron-6">Perceptron</h3>
+<h4 id="exercise-1">Exercise:</h4>
+<ul>
+<li>What about the <em>AND</em> function?</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$x_1$</th>
+<th>$x_2$</th>
+<th>$y$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</section><section>
+<h2 id="artificial-neural-networks-30">Artificial Neural Networks</h2>
+<h3 id="activation-functions">Activation Functions</h3>
+<ul>
+<li>Describes <em>whether or not the neuron fires</em>, i.e., if it forwards its value for the next neuron layer;</li>
+<li>Historically they translated the output of the neuron into either 1 (On/active) or 0 (Off) - Step Function:</li>
+</ul>
+<pre><code class="language-python">if prediction[i]&gt;0.5: return 1
+return 0
+</code></pre>
+</section><section>
+<h2 id="artificial-neural-networks-31">Artificial Neural Networks</h2>
+<h3 id="activation-functions-1">Activation Functions</h3>
+<ul>
+<li><em>Multiply the input</em> by its <em>weights</em>, <em>add the bias</em> and <em>applies activation</em>;</li>
+<li>Sigmoid, Hyperbolic Tangent, Rectified Linear Unit;</li>
+<li><em>Differentiable function</em> instead of the step function;</li>
+</ul>
+<center> <img src="activation_functions.png" width="500px"/></center>
+
+
+
+<aside class="notes"><ul>
+<li>
+<p>With this modification, a multi-layered network of perceptrons would become
+differentiable. Hence gradient descent could be applied to minimize the
+network’s error and the chain rule could “back-propagate” proper error
+derivatives to update the weights from every layer of the network.</p>
+</li>
+<li>
+<p>At the moment, one of the most efficient ways to train a multi-layer neural
+network is by using gradient descent with backpropagation. A requirement for
+backpropagation algorithm is a differentiable activation function. However, the
+Heaviside step function is non-differentiable at x = 0 and it has 0 derivative
+elsewhere. This means that gradient descent won’t be able to make a progress in
+updating the weights.</p>
+</li>
+<li>
+<p>The main objective of the neural network is to learn the values of the weights
+and biases so that the model could produce a prediction as close as possible to
+the real value. In order to do this, as in many optimisation problems, we’d
+like a small change in the weight or bias to cause only a small corresponding
+change in the output from the network. By doing this, we can continuously
+tweaked the values of weights and bias towards resulting the best
+approximation. Having a function that can only generate either 0 or 1 (or yes
+and no), won&rsquo;t help us to achieve this objective.</p>
+</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-32">Artificial Neural Networks</h2>
+<h3 id="the-bias-1">The Bias</h3>
+<center><img src="bias1.png" width="600px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-33">Artificial Neural Networks</h2>
+<h3 id="the-bias-2">The Bias</h3>
+<center><img src="bias2.png" width="600px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-34">Artificial Neural Networks</h2>
+<h3 id="perceptron---what-it-emcant-doem">Perceptron - What it <em>can&rsquo;t do</em>!</h3>
+<ul>
+<li>The <em>XOR</em> function:</li>
+</ul>
+<center><img src="xor1.png" width="650px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-35">Artificial Neural Networks</h2>
+<h3 id="perceptron---solving-the-xor-problem">Perceptron - Solving the XOR problem</h3>
+<ul>
+<li>3D example of the solution of learning the OR function:
+<ul>
+<li>Using <em>Sigmoid</em> function;</li>
+</ul>
+</li>
+</ul>
+<center> <img src="or5.png" width="600px"/></center>
+
+
+
+<aside class="notes"><p>That creates a <strong>hyperplane</strong> that separates the classes;</p>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-36">Artificial Neural Networks</h2>
+<h3 id="perceptron---solving-the-xor-problem-1">Perceptron - Solving the XOR problem</h3>
+<ul>
+<li>Maybe there is a combination of functions that could create hyperplanes that separate the <em>XOR</em> classes:
+<ul>
+<li>By increasing the number of layers we increase the complexity of the function represented by the ANN:</li>
+</ul>
+</li>
+</ul>
+<center><a href="xor2.png" target="_blank"><img src="xor2.png" width="580px"/></a></center>
+
+
+
+<aside class="notes"><p>Now, there are 2 hyperplanes, that when put together, can perfectly separate the classes;</p>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-37">Artificial Neural Networks</h2>
+<h3 id="perceptron---solving-the-xor-problem-2">Perceptron - Solving the XOR problem</h3>
+<ul>
+<li>The combination of the layers:</li>
+</ul>
+<center><a href="xor3.png" target="_blank"><img src="xor3.png" width="300px"/></a></center>
+
+
+
+<aside class="notes"><ul>
+<li>That is what people mean when they say we don&rsquo;t know how deep neural networks
+work. We know that it is a composition of functions, but the shape of that
+remains a little bit hard to define;</li>
+<li>Yesterday we saw polynomial transformation of features - in that we saw that
+we changed the shape of the regression line being built;</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-38">Artificial Neural Networks</h2>
+<h3 id="perceptron---solving-the-xor-problem-3">Perceptron - Solving the XOR problem</h3>
+<ul>
+<li>Implementing an ANN that can solve the XOR problem:
+<ul>
+<li>Add a new layer with a larger number of neurons:</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python">...
+#Create a layer with 4 neurons as output
+model.add(Dense(units=4), activation=&quot;sigmoid&quot;, input_dim=2)
+
+# Connect to the first layer that we defined
+model.add(Dense(units=1, activation=&quot;sigmoid&quot;)
+</code></pre>
+
+
+
+<aside class="notes"><p>Train for little steps and then increase the number of epochs</p>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-39">Artificial Neural Networks</h2>
+<h4 id="emmultilayer-perceptronsem---increasing-the-model-power"><em>Multilayer Perceptrons</em> - Increasing the model power</h4>
+<ul>
+<li>
+<p>Typically represented by composing many different
+functions:
+$$y = f^{(3)}(f^{(2)}(f^{(1)}(x)))$$</p>
+</li>
+<li>
+<p>The <em>depth</em> of the network - the <em>deep</em> in deep learning! (-;</p>
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-40">Artificial Neural Networks</h2>
+<h4 id="emmultilayer-perceptronsem---increasing-the-model-power-1"><em>Multilayer Perceptrons</em> - Increasing the model power</h4>
+<ul>
+<li>Information flows from $x$ , through computations and finally to $y$.</li>
+<li>No feedback!</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-41">Artificial Neural Networks</h2>
+<h3 id="understanding-the-training">Understanding the training</h3>
+<ul>
+<li>Plot the architecture of the network:</li>
+</ul>
+<pre><code class="language-python">tf.keras.utils.plot_model(model, show_shapes=True, show_layer_names=False)
+</code></pre>
+<center><img src="nn_architecture.png" width="250px" /></center>
+
+
+
+<aside class="notes"><p>The ? means that they take as much examples as possible;</p>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-42">Artificial Neural Networks</h2>
+<h3 id="understanding-the-training-1">Understanding the training</h3>
+<ul>
+<li>Plotting the training progress of the XOR ANN:</li>
+</ul>
+<pre><code class="language-python">history = model.fit(x=X_data, y=Y_data, epochs=2500, verbose=0)
+import matplotlib.pyplot as plt
+plt.plot(history.history['loss'])
+plt.title('Model Training Progression')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend(['Loss'], loc='upper left')
+plt.show()
+</code></pre>
+<center><a href="loss_trainning2.png" target="_blank"><img src="loss_trainning2.png" width="200px" /></a></center>
+
+
+
+<aside class="notes"><ul>
+<li>This is called the <em>learning curve</em>;</li>
+<li>In the case of the XOR. <em>What is wrong with that?</em></li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-43">Artificial Neural Networks</h2>
+<h3 id="problems-with-the-training-procedure">Problems with the training procedure:</h3>
+<ul>
+<li>Saddle points:
+<ul>
+<li>No matter how long you train your model for, <em> the error remains (almost) constant!</em></li>
+</ul>
+</li>
+</ul>
+<center><a href="saddle.png" target="_blank"><img src="saddle.png" width="300px" /></a></center>
+
+
+
+<aside class="notes"><ul>
+<li>That eventually happens because of a bad optimization function;</li>
+<li>Imagine that you could add momentum to the gradient descent - probably it
+could continue updating;</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-44">Artificial Neural Networks</h2>
+<h3 id="optimization-alternatives">Optimization alternatives</h3>
+<ul>
+<li>The Gradient Descent is <em>not always the best option</em> to go with:
+<ul>
+<li>Only does the update after <em>calculating the derivative for the whole
+dataset</em>;</li>
+<li>Can take a <em>long time to find the minimum</em> point;</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-45">Artificial Neural Networks</h2>
+<h3 id="optimization-alternatives-1">Optimization alternatives</h3>
+<ul>
+<li>The <a href="gd.gif" target="_blank">Gradient Descent</a> is <em>not always the best option</em> to go with:
+<ul>
+<li>For non-convex surfaces, it may only find the local minimums - <a href="gd2.gif" target="_bank">the saddle situation</a>;</li>
+<li><strong><em>Vectorization</em></strong></li>
+</ul>
+</li>
+</ul>
+<p><a href="vectorization.jpeg" target="_blank"><center><img src="vectorization.jpeg" width="450px" /></center></a></p>
+
+
+
+<aside class="notes"><ul>
+<li>For large datasets, the vectorization of data doesn’t fit into memory.</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-46">Artificial Neural Networks</h2>
+<h3 id="optimization-alternatives-2">Optimization alternatives</h3>
+<ul>
+<li>Gradient Descent alternatives:
+<ul>
+<li><a href="sgd.gif" target="_blank">Stochastic Gradient Descent</a>: updates at each input;</li>
+<li><a href="minibatch.gif" target="_blank">Minibatch Gradient Descent</a>: updates after reading a batch of examples;
+<br /><br /></li>
+</ul>
+</li>
+</ul>
+<center>
+###### Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.
+</center>
+
+
+
+<aside class="notes"><p>Minibatch:</p>
+<ul>
+<li>Updates are less noisy compared to SGD which leads to better convergence.</li>
+<li>A high number of updates in a single epoch compared to GD so less number of epochs are required for large datasets.</li>
+<li>Fits very well to the processor memory which makes computing faster.</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-47">Artificial Neural Networks</h2>
+<h3 id="optimization-alternatives-3">Optimization alternatives</h3>
+<h6 id="adaptative-learning-rates">Adaptative Learning Rates:</h6>
+<ul>
+<li><a href="adagrad.gif" target="_blank">Adagrad</a>, <a href="rmsprop.gif" target="_blank">RMSProp</a>, <a href="adam.gif" target="_blank">Adam</a>;</li>
+</ul>
+<h6 id="heading"></h6>
+<p><br /><br /></p>
+<center>
+###### Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.
+</center>
+
+
+
+<aside class="notes"><ul>
+<li>For Adagrad:
+<ul>
+<li>Parameters with small updates(sparse features) have high learning rate whereas the parameters with large updates(dense features) have low learning rateupdates at each input;</li>
+<li>The learning rate decays very aggressively</li>
+</ul>
+</li>
+<li>RMSProp: A large number of oscillations with high learning rate or large gradient</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-48">Artificial Neural Networks</h2>
+<h3 id="multilayer-perceptron---xor">Multilayer Perceptron - XOR</h3>
+<ul>
+<li>Try another optimizer:</li>
+</ul>
+<pre><code class="language-python">model.compile(loss=&quot;mean_squared_error&quot;, optimizer=&quot;adam&quot;)
+</code></pre>
+<ul>
+<li>My <a href="https://colab.research.google.com/drive/1hpRRtJuC78uPXJE68oOjRaM03LVV_rgo" target="_blank">solution</a></li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-49">Artificial Neural Networks</h2>
+<h3 id="predicting-probabilities">Predicting probabilities</h3>
+<ul>
+<li>Imagine that we have <em>more than 2 classes</em> to output;</li>
+<li>One of the <em>most popular usages</em> for ANN;</li>
+</ul>
+<center><a href="classification_example.jpeg" target="_blank"><img src="classification_example.jpeg" width="300px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-50">Artificial Neural Networks</h2>
+<h3 id="predicting-probabilities-1">Predicting probabilities</h3>
+<ul>
+<li>The <a href="https://en.wikipedia.org/wiki/Softmax_function" target="_blank">Softmax</a> function;</li>
+<li>Takes an array and outputs a probability distribution, i.e., <em>the probability
+of the input example belonging to each of the classes</em> in my problem;</li>
+<li>One of the activation functions available at <code>Keras</code>:</li>
+</ul>
+<pre><code class="language-python">model.add(Dense(2, activation=&quot;softmax&quot;))
+</code></pre>
+
+
+
+<aside class="notes"><ul>
+<li>Softmax - function that takes as input a vector of K real numbers, and normalizes it into a probability distribution</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-51">Artificial Neural Networks</h2>
+<h3 id="loss-functions">Loss functions</h3>
+<ul>
+<li>For regression problems
+<ul>
+<li>Mean squared error is <em>not always the best one to go</em>;
+<ul>
+<li>What if we have a three classes problem?</li>
+</ul>
+</li>
+<li>Alternatives: <code>mean_absolute_error</code>, <code>mean_squared_logarithmic_error</code></li>
+</ul>
+</li>
+</ul>
+
+
+
+<aside class="notes"><ul>
+<li>logarithm means changing scale as the error can grow really fast;</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-52">Artificial Neural Networks</h2>
+<h3 id="loss-functions-1">Loss functions</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Cross_entropy" target="_blank">Cross Entropy</a> loss:
+<ul>
+<li>Default loss function to use for binary classification problems.</li>
+<li>Measures the <em>performance of a model</em> whose output is a probability value between 0 and 1;</li>
+<li><em>Loss increases</em> as the <em>predicted probability diverges</em> from the actual label;</li>
+<li>A <em>perfect model</em> would have a log loss of 0;</li>
+</ul>
+</li>
+</ul>
+
+
+
+<aside class="notes"><ul>
+<li>As the correct predicted probability decreases, however, the log loss increases rapidly:</li>
+<li>In case the model has to answer 1, but it does with a very low probability;</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-53">Artificial Neural Networks</h2>
+<h3 id="dealing-with-overfitting">Dealing with overfitting</h3>
+<ul>
+<li><em>Dropout</em> layers:
+<ul>
+<li>Randomly <em>disable</em> some of the neurons during the training passes;</li>
+</ul>
+</li>
+</ul>
+<center><a href="dropout.gif" target="_blank"><img src="dropout.gif" width="500px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-54">Artificial Neural Networks</h2>
+<h3 id="dealing-with-overfitting-1">Dealing with overfitting</h3>
+<ul>
+<li><em>Dropout</em> layers:</li>
+</ul>
+<pre><code class="language-python"># Drop half of the neurons outputs from the previous layer
+model.add(Dropout(0.5))
+</code></pre>
+
+
+
+<aside class="notes"><ul>
+<li>“drops out” a random set of activations in that layer by setting them to zero;</li>
+<li>forces the network to be redundant;</li>
+<li>the net should be able to provide the right classification for a specific example even if some of the activations are dropped out;</li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-55">Artificial Neural Networks</h2>
+<h3 id="larger-example">Larger Example</h3>
+<ul>
+<li>The <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset: database of handwritten digits;</li>
+<li>Dataset included in Keras;</li>
+</ul>
+<center><a href="mnist.png" target="_blank"><img src="mnist.png" width="500px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-56">Artificial Neural Networks</h2>
+<h3 id="the-mnist-mlp">The MNIST MLP</h3>
+<ul>
+<li>Try to improve the classification results using <a href="https://colab.research.google.com/drive/1AnGJz_R0PJF0d83ye_3y7NPGuX5YipBi" target="_blank">this notebook</a>:</li>
+<li>Things to try:
+<ul>
+<li>Increase the number of neurons at the first layer;</li>
+<li>Change the optimizer and the loss function;</li>
+<li>Try <code>categorical_crossentropy</code> and <code>rmsprop</code> optimizer;</li>
+<li>Try adding some extra layers;</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="artificial-neural-networks-57">Artificial Neural Networks</h2>
+<h3 id="the-mnist-mlp-1">The MNIST MLP</h3>
+<ul>
+<li>
+<p>Try to improve the classification results using <a href="https://colab.research.google.com/drive/1AnGJz_R0PJF0d83ye_3y7NPGuX5YipBi" target="_blank">this notebook</a>:</p>
+</li>
+<li>
+<p>Things to try:</p>
+<ul>
+<li>Try addind <code>Dropout</code> layers;</li>
+<li>Increase the number of <code>epochs</code>;</li>
+<li>Try to <em>normalize the data</em>!</li>
+</ul>
+</li>
+<li>
+<p>What is the best accuracy?</p>
+</li>
+<li>
+<p><a href="https://colab.research.google.com/drive/1LnkhSA7XbEWMNdaebOXxsOENr6m-0vpZ" target="_blank">My solution</a>.</p>
+</li>
+</ul>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      data-background-image="cms.png">
+  
+<h1 id="span-stylecolorfff-the-exercisespan"><span style="color:#fff;"> The Exercise</span></h1>
+</section><section>
+<h2 id="artificial-neural-networks-58">Artificial Neural Networks</h2>
+<h3 id="the-exercise">The Exercise</h3>
+<center><a href="atlas_particle_shower.jpg" target="_blank"><img src="atlas_particle_shower.jpg" width="500px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-59">Artificial Neural Networks</h2>
+<h3 id="the-exercise-1">The Exercise</h3>
+<center><a href="jet-images.png" target="_blank"><img src="jet-images.png" width="500px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-60">Artificial Neural Networks</h2>
+<h3 id="the-exercise-2">The Exercise</h3>
+<ul>
+<li>Quantum Chromodynamics</li>
+</ul>
+<center><a href="qcd.png" target="_blank"><img src="qcd.png" width="500px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-61">Artificial Neural Networks</h2>
+<h3 id="signal-vs-background">Signal VS Background</h3>
+<center><a href="backgroundVSsignal.png" target="_blank"><img src="backgroundVSsignal.png" width="700px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-62">Artificial Neural Networks</h2>
+<h3 id="signal-vs-background-1">Signal VS Background</h3>
+<p>Run this <a href="https://colab.research.google.com/drive/14sdqWQdvjaxi_IZXLtrAzCP4emEpmqa-" target="_blank">Jupyter Notebook</a> for performing the Jet Classification.</p>
+</section>
+
+</div>
+      
+<div class="line top"></div>
+<div class="line bottom"></div>
+
+
+
+    </div>
+<script type="text/javascript" src=/reveal-hugo/object-assign.js></script>
+
+<a href="/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">{"history":true,"templates":{"grey":{"background":"#424242","transition":"convex"}}}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"custom_theme":"reveal-hugo/themes/robot-lung.css","highlight_theme":"mono-blue","margin":0,"templates":{"hotpink":{}},"transition":"slide","transition_speed":"fast"}</script>
+
+<script src="/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({startOnLoad: false});
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    
+    
+
+
+<script type="text/javascript">
+
+Reveal.addEventListener('slidechanged', function(event) {
+  console.log("🎞️ Slide is now " + event.indexh);
+});
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+<style>
+  #logo {
+    position: absolute;
+    top: 30px;
+    left: 83%;
+    width: 320px;
+  }
+</style>
+<img id="logo" src="logo_ai2.png" alt="Advanced Institute for Artificial Intelligence">
+
+  </body>
+</html>
