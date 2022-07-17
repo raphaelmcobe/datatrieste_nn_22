@@ -1,16 +1,16 @@
 baseURL = "https://example.com/"
 languageCode = "en-us"
-title = "A Hugo theme for creating Reveal.js presentations"
+title = "Introduction to Neural Networks"
 disableKinds = ["sitemap", "RSS"]
 theme = "."
 themesDir = "../"
 
 # uncomment for browsing at file:///
-# relativeURLs = true
-# uglyURLs = true
+relativeURLs = true
+uglyURLs = true
 
 [author]
-name = "Josh Dzielak"
+name = "Raphael Cobe"
 
 # currently only the unsafe mode for goldmark is supported
 [markup.goldmark.renderer]

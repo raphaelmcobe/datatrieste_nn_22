@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script src="./sigmoid_example1_files/jquery-3.1.1.slim.min.js"></script>
+    <script type="text/javascript" src="./sigmoid_example1_files/d3.min.js"></script>
+    <script type="text/javascript" src="./sigmoid_example1_files/d3-selection-multi.v0.4.min.js"></script>
+    <script type="text/javascript" src="./sigmoid_example1_files/d3-jetpack.js"></script>
+
+    <link rel="stylesheet" href="./sigmoid_example1_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./sigmoid_example1_files/bootstrap-theme.min.css">
+    <script src="./sigmoid_example1_files/bootstrap.min.js"> </script>
+
+    <link rel="stylesheet" type="text/css" href="./sigmoid_example1_files/gifplayer.css">
+    <script type="text/javascript" src="./sigmoid_example1_files/jquery.gifplayer.js"></script>
+
+    <!--
+    <script data-main="scripts/main" src="scripts/require.js"></script>
+    -->
+    <link rel="stylesheet" href="./sigmoid_example1_files/katex.min.css" integrity="sha384-wE+lCONuEo/QSfLb4AfrSk7HjWJtc4Xc1OiB2/aDBzHzjnlBP4SX7vjErTcwlA8C" crossorigin="anonymous">
+    <script src="./sigmoid_example1_files/katex.min.js" integrity="sha384-tdtuPw3yx/rnUGmnLNWXtfjb9fpmwexsd+lr6HUYnUY4B7JhB5Ty7a1mYd+kto/s" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="./sigmoid_example1_files/style.css">
+    <link rel="alternate" type="application/rss+xml" title="Jay Alammar - Visualizing machine learning one concept at a time." href="https://jalammar.github.io/feed.xml">
+
+    <meta name="viewport" content="width=device-width">
+    
+  <style type="text/css">#mc_embed_signup input.mce_inline_error { border-color:#6B0505; } #mc_embed_signup div.mce_inline_error { margin: 0 0 1em 0; padding: 5px 10px; background-color:#6B0505; font-weight: bold; z-index: 1; color:#fff; }</style></head>
+
+
+
+
+<div class="row neuron-expo vertical-align">
+  <div class="col-sm-4 small-column">
+    <table>
+      <tbody><tr>
+      <td class="relu-input-value explicit-slider-weight-value" valign="middle">0</td>
+      <td>
+      <img src="./sigmoid_example1_files/relu.png">
+      </td>
+      <td class="explicit-relu-activation-output-value">0</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row neuron-expo vertical-align">
+  <div class="col-sm-8 side-column">
+      <!-- ==== RELU SLIDER ==== -->
+    <table class="activation-graph-slider">
+      <tbody><tr>
+      <td>
+      <input id="relu-slider" style="width: 320px; margin-left: 40px;" type="range" class="weight" min="-20" max="20" step="0.01">
+      </td>
+      <td class="slider-value">
+      <span class="weight relu-input-value">0</span>
+      </td>
+      </tr>
+      </tbody>
+    </table>
+
+   <!-- ==== RELU FORMULA ==== -->
+    <p style="margin-left:40px">f(<span class="slider-value"><span class="relu-input-value weight">0</span></span>) = max(0,<span id="relu-formula-input" class="mord mathit"><span class="relu-value-input-number">x</span></span>) = <span id="relu-result"></span></p>
+
+      <!-- ==== RELU GRAPH ==== -->
+    <div id="relu-graph" style="width:100%"></div>
+  </div>
+</div>
+
+<script type="text/javascript" src="./sigmoid_example1_files/nnVizUtils.js"></script>
+
+<script type="text/javascript" src="./sigmoid_example1_files/nn_calc.js"></script>
+
+
+<script type="text/javascript" src="./sigmoid_example1_files/relu_graph.js"></script>
+
+<script type="text/javascript" src="./sigmoid_example1_files/accuracy-graph.js"></script>
+
+
+</body></html>
