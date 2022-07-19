@@ -488,7 +488,7 @@ sheer complexity of connections between neurons;</li>
 </ul>
 </li>
 <li>Runs seamlessly on <em>CPU</em> and <em>GPU</em>;</li>
-<li>Compatible with: <em>Python 2.7-3.6</em>;</li>
+<li>Compatible with: <em>Python 2.7-3.8</em> and <em>R</em>;</li>
 </ul>
 </section><section>
 <h2 id="artificial-neural-networks-24">Artificial Neural Networks</h2>
@@ -500,11 +500,11 @@ sheer complexity of connections between neurons;</li>
 </ul>
 </li>
 </ul>
-<pre><code class="language-python"># Import the Sequential model
-from tensorflow.keras.models import Sequential
+<pre><code class="language-R"># Import the Keras Library
+library(keras)
 
 # Instantiate the model
-model = Sequential()
+model &lt;- keras_model_sequential()
 </code></pre>
 </section><section>
 <h2 id="artificial-neural-networks-25">Artificial Neural Networks</h2>
@@ -516,11 +516,9 @@ model = Sequential()
 </ul>
 </li>
 </ul>
-<pre><code class="language-python"># Import the Dense layer
-from tensorflow.keras.layers import Dense
-
+<pre><code class="language-python"># Use the Dense layer
 # Add a forward layer to the model 
-model.add(Dense(units=1, input_dim=2))
+model &lt;- model %&gt;% layer_dense(units = 1, input_shape = c(2))
 </code></pre>
 
 
@@ -540,13 +538,14 @@ href="https://medium.com/tebs-lab/deep-neural-networks-as-computational-graphs-8
 </ul>
 </li>
 </ul>
-<pre><code class="language-python"># Specify the loss function (error) and the optimizer 
+<pre><code class="language-R"># Specify the loss function (error) and the optimizer 
 #   (a variation of the gradient descent method)
-model.compile(loss=&quot;mean_squared_error&quot;, optimizer=&quot;sgd&quot;)
+
+model %&gt;% compile(loss = &quot;mean_squared_error&quot;, optimizer = &quot;sgd&quot;)
 
 # Fit the model using the train data and also 
 #   provide the expected result
-model.fit(x=train_data_X, y=train_data_Y)
+model %&gt;% fit(x = train_data_X, y = train_data_Y, epochs = 5)
 </code></pre>
 
 
@@ -562,6 +561,7 @@ model.fit(x=train_data_X, y=train_data_Y)
 </ul>
 </li>
 <li>Makes it easier to create an auto diferentiation strategy;</li>
+<li>We can user <code>verbose=1</code> to increase the output;</li>
 </ul>
 </li>
 </ul>
@@ -572,29 +572,50 @@ model.fit(x=train_data_X, y=train_data_Y)
 <ul>
 <li>Evaluate the quality of the model:</li>
 </ul>
-<pre><code class="language-python"># Use evaluate function to get the loss and other metrics that the framework 
+<pre><code class="language-r"># Use evaluate function to get the loss and other metrics that the framework 
 #  makes available 
-loss_and_metrics = model.evaluate(train_data_X, train_data_Y)
-print(loss_and_metrics)
-#0.4043288230895996
+model %&gt;% 
+  evaluate(test_data_X, test_data_Y)
+
+## $loss
+## [1] 0.0833252
+## 
+## $accuracy
+## [1] 0.9741
+
 
 # Do a prediction using the trained model
-prediction = model.predict(train_data_X)
-print(prediction)
+predictions &lt;- predict(model, mnist$test$x)
+head(predictions, 2)
 # [[-0.25007164]
-#  [ 0.24998784]
-#  [ 0.24999022]
 #  [ 0.7500497 ]]
 </code></pre>
+
+
+
+<aside class="notes"><p>We can use verbose during the evaluate</p>
+</aside>
 </section><section>
 <h2 id="artificial-neural-networks-28">Artificial Neural Networks</h2>
+<h3 id="activation-functions">Activation Functions</h3>
+<ul>
+<li>Describes <em>whether or not the neuron fires</em>, i.e., if it forwards its value for the next neuron layer;</li>
+<li>Historically they translated the output of the neuron into either 1 (On/active) or 0 (Off) - Step Function:</li>
+</ul>
+<pre><code class="language-r">if(prediction[i]&gt;0.5){
+  return 1
+}
+return 0
+</code></pre>
+</section><section>
+<h2 id="artificial-neural-networks-29">Artificial Neural Networks</h2>
 <h3 id="the-a-hrefhttpskerasio-target_blankkeras-frameworka-5">The <a href="https://keras.io" target="_blank">Keras framework</a></h3>
 <h4 id="exercise">Exercise:</h4>
 <p>Run the example of the Jupyter notebook:
 <br />
-<a href="https://colab.research.google.com/drive/1hNOR60jfru-b0Vb-ec-Y_yF9pyuy8Wtj" target="_blank">Perceptron - OR</a></p>
+<a href="https://colab.research.google.com/drive/1SlxcqCXu1PteSxLyy4x-aXZrEhFcdhS7?usp=sharing" target="_blank">Perceptron - OR</a></p>
 </section><section>
-<h2 id="artificial-neural-networks-29">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-30">Artificial Neural Networks</h2>
 <h3 id="perceptron-6">Perceptron</h3>
 <h4 id="exercise-1">Exercise:</h4>
 <ul>
@@ -631,18 +652,40 @@ print(prediction)
 </tr>
 </tbody>
 </table>
-</section><section>
-<h2 id="artificial-neural-networks-30">Artificial Neural Networks</h2>
-<h3 id="activation-functions">Activation Functions</h3>
 <ul>
-<li>Describes <em>whether or not the neuron fires</em>, i.e., if it forwards its value for the next neuron layer;</li>
-<li>Historically they translated the output of the neuron into either 1 (On/active) or 0 (Off) - Step Function:</li>
+<li><a href="https://colab.research.google.com/drive/10O_OwdFJj9OCNVJJSp8n3_vHhHWrmrbp?usp=sharing" target="_blank">My solution</a>.</li>
 </ul>
-<pre><code class="language-python">if prediction[i]&gt;0.5: return 1
-return 0
-</code></pre>
 </section><section>
 <h2 id="artificial-neural-networks-31">Artificial Neural Networks</h2>
+<h3 id="perceptron---what-it-emcant-doem">Perceptron - What it <em>can&rsquo;t do</em>!</h3>
+<ul>
+<li>The <em>XOR</em> function:</li>
+</ul>
+<center><img src="xor1.png" width="500px"/></center>
+<p>Check-out what happens when we try to use the same architecture for solving the
+XOR function <a
+href="https://colab.research.google.com/drive/1g9Sl6XngxF_TEJakdiU1DpOHAKpfwoAR?usp=sharing"
+target="_blank">here</a>.</p>
+</section><section>
+<h2 id="artificial-neural-networks-32">Artificial Neural Networks</h2>
+<h3 id="understanding-the-training">Understanding the training</h3>
+<ul>
+<li>Plotting the training progress of the XOR ANN:</li>
+</ul>
+<pre><code class="language-r">history &lt;- model %&gt;% fit(x_train, y_train, epochs = 200)
+plot(model)
+</code></pre>
+<center><a href="loss_trainning2.png" target="_blank"><img src="loss_trainning2.png" width="250px" /></a></center>
+
+
+
+<aside class="notes"><ul>
+<li>This is called the <em>learning curve</em>;</li>
+<li>In the case of the XOR. <em>What is wrong with that?</em></li>
+</ul>
+</aside>
+</section><section>
+<h2 id="artificial-neural-networks-33">Artificial Neural Networks</h2>
 <h3 id="activation-functions-1">Activation Functions</h3>
 <ul>
 <li><em>Multiply the input</em> by its <em>weights</em>, <em>add the bias</em> and <em>applies activation</em>;</li>
@@ -681,22 +724,16 @@ and no), won&rsquo;t help us to achieve this objective.</p>
 </ul>
 </aside>
 </section><section>
-<h2 id="artificial-neural-networks-32">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-34">Artificial Neural Networks</h2>
 <h3 id="the-bias-1">The Bias</h3>
 <center><img src="bias1.png" width="600px"/></center>
 </section><section>
-<h2 id="artificial-neural-networks-33">Artificial Neural Networks</h2>
-<h3 id="the-bias-2">The Bias</h3>
-<center><img src="bias2.png" width="600px"/></center>
-</section><section>
-<h2 id="artificial-neural-networks-34">Artificial Neural Networks</h2>
-<h3 id="perceptron---what-it-emcant-doem">Perceptron - What it <em>can&rsquo;t do</em>!</h3>
-<ul>
-<li>The <em>XOR</em> function:</li>
-</ul>
-<center><img src="xor1.png" width="650px"/></center>
-</section><section>
 <h2 id="artificial-neural-networks-35">Artificial Neural Networks</h2>
+<h3 id="the-bias-2">The Bias</h3>
+<p>Give even more power to our model</p>
+<center><img src="bias2.png" width="450px"/></center>
+</section><section>
+<h2 id="artificial-neural-networks-36">Artificial Neural Networks</h2>
 <h3 id="perceptron---solving-the-xor-problem">Perceptron - Solving the XOR problem</h3>
 <ul>
 <li>3D example of the solution of learning the OR function:
@@ -712,7 +749,7 @@ and no), won&rsquo;t help us to achieve this objective.</p>
 <aside class="notes"><p>That creates a <strong>hyperplane</strong> that separates the classes;</p>
 </aside>
 </section><section>
-<h2 id="artificial-neural-networks-36">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-37">Artificial Neural Networks</h2>
 <h3 id="perceptron---solving-the-xor-problem-1">Perceptron - Solving the XOR problem</h3>
 <ul>
 <li>Maybe there is a combination of functions that could create hyperplanes that separate the <em>XOR</em> classes:
@@ -728,7 +765,7 @@ and no), won&rsquo;t help us to achieve this objective.</p>
 <aside class="notes"><p>Now, there are 2 hyperplanes, that when put together, can perfectly separate the classes;</p>
 </aside>
 </section><section>
-<h2 id="artificial-neural-networks-37">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-38">Artificial Neural Networks</h2>
 <h3 id="perceptron---solving-the-xor-problem-2">Perceptron - Solving the XOR problem</h3>
 <ul>
 <li>The combination of the layers:</li>
@@ -744,28 +781,6 @@ remains a little bit hard to define;</li>
 <li>Yesterday we saw polynomial transformation of features - in that we saw that
 we changed the shape of the regression line being built;</li>
 </ul>
-</aside>
-</section><section>
-<h2 id="artificial-neural-networks-38">Artificial Neural Networks</h2>
-<h3 id="perceptron---solving-the-xor-problem-3">Perceptron - Solving the XOR problem</h3>
-<ul>
-<li>Implementing an ANN that can solve the XOR problem:
-<ul>
-<li>Add a new layer with a larger number of neurons:</li>
-</ul>
-</li>
-</ul>
-<pre><code class="language-python">...
-#Create a layer with 4 neurons as output
-model.add(Dense(units=4), activation=&quot;sigmoid&quot;, input_dim=2)
-
-# Connect to the first layer that we defined
-model.add(Dense(units=1, activation=&quot;sigmoid&quot;)
-</code></pre>
-
-
-
-<aside class="notes"><p>Train for little steps and then increase the number of epochs</p>
 </aside>
 </section><section>
 <h2 id="artificial-neural-networks-39">Artificial Neural Networks</h2>
@@ -789,13 +804,13 @@ $$y = f^{(3)}(f^{(2)}(f^{(1)}(x)))$$</p>
 </ul>
 </section><section>
 <h2 id="artificial-neural-networks-41">Artificial Neural Networks</h2>
-<h3 id="understanding-the-training">Understanding the training</h3>
+<h3 id="understanding-the-training-1">Understanding the training</h3>
 <ul>
 <li>Plot the architecture of the network:</li>
 </ul>
-<pre><code class="language-python">tf.keras.utils.plot_model(model, show_shapes=True, show_layer_names=False)
+<pre><code class="language-r">plot(model, show_shapes=T)
 </code></pre>
-<center><img src="nn_architecture.png" width="250px" /></center>
+<center><img src="nn_architecture.png" width="300px" /></center>
 
 
 
@@ -803,27 +818,28 @@ $$y = f^{(3)}(f^{(2)}(f^{(1)}(x)))$$</p>
 </aside>
 </section><section>
 <h2 id="artificial-neural-networks-42">Artificial Neural Networks</h2>
-<h3 id="understanding-the-training-1">Understanding the training</h3>
+<h3 id="perceptron---solving-the-xor-problem-3">Perceptron - Solving the XOR problem</h3>
 <ul>
-<li>Plotting the training progress of the XOR ANN:</li>
+<li>Implementing an ANN that can solve the XOR problem:
+<ul>
+<li>Add a new layer with a larger number of neurons:</li>
 </ul>
-<pre><code class="language-python">history = model.fit(x=X_data, y=Y_data, epochs=2500, verbose=0)
-import matplotlib.pyplot as plt
-plt.plot(history.history['loss'])
-plt.title('Model Training Progression')
-plt.ylabel('Loss')
-plt.xlabel('Epoch')
-plt.legend(['Loss'], loc='upper left')
-plt.show()
+</li>
+</ul>
+<pre><code class="language-r">...
+#Create an extra layer with 4 neurons and use the sigmoid activation function:
+model &lt;- model %&gt;% layer_dense(units=8, input_shape=c(2), activation=&quot;sigmoid&quot;)
+
+# Connect to the first layer that we defined and also apply the sigmoid
+model &lt;- model %&gt;% layer_dense(units=1, activation=&quot;sigmoid&quot;)
 </code></pre>
-<center><a href="loss_trainning2.png" target="_blank"><img src="loss_trainning2.png" width="200px" /></a></center>
+<p>Let&rsquo;s check if that solves our XOR problem <a
+href="https://colab.research.google.com/drive/1cs3--kdfF5nXGgWdTFMQ73r_9k7I_pO1?usp=sharing"
+target="_blank">here</a>.</p>
 
 
 
-<aside class="notes"><ul>
-<li>This is called the <em>learning curve</em>;</li>
-<li>In the case of the XOR. <em>What is wrong with that?</em></li>
-</ul>
+<aside class="notes"><p>Train for little steps and then increase the number of epochs</p>
 </aside>
 </section><section>
 <h2 id="artificial-neural-networks-43">Artificial Neural Networks</h2>
@@ -889,7 +905,7 @@ dataset</em>;</li>
 </li>
 </ul>
 <center>
-###### Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.
+<h6 id="animations-taken-from-vikashraj-luhaniwal-a-hrefhttpstowardsdatasciencecomwhy-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096-target--_blankposta">Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.</h6>
 </center>
 
 
@@ -911,7 +927,7 @@ dataset</em>;</li>
 <h6 id="heading"></h6>
 <p><br /><br /></p>
 <center>
-###### Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.
+<h6 id="animations-taken-from-vikashraj-luhaniwal-a-hrefhttpstowardsdatasciencecomwhy-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096-target--_blankposta-1">Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.</h6>
 </center>
 
 
@@ -932,11 +948,9 @@ dataset</em>;</li>
 <ul>
 <li>Try another optimizer:</li>
 </ul>
-<pre><code class="language-python">model.compile(loss=&quot;mean_squared_error&quot;, optimizer=&quot;adam&quot;)
+<pre><code class="language-r">model %&gt;% compile(loss = &quot;mean_squared_error&quot;, optimizer = &quot;rmsprop&quot;)
 </code></pre>
-<ul>
-<li>My <a href="https://colab.research.google.com/drive/1hpRRtJuC78uPXJE68oOjRaM03LVV_rgo" target="_blank">solution</a></li>
-</ul>
+<p>My <a href="https://colab.research.google.com/drive/1DNN2PCoOrGoYQv7skznLNm6MZ5-Mk24m?usp=sharing" target="_blank">solution</a></p>
 </section><section>
 <h2 id="artificial-neural-networks-49">Artificial Neural Networks</h2>
 <h3 id="predicting-probabilities">Predicting probabilities</h3>
@@ -1008,6 +1022,10 @@ of the input example belonging to each of the classes</em> in my problem;</li>
 </aside>
 </section><section>
 <h2 id="artificial-neural-networks-53">Artificial Neural Networks</h2>
+<h3 id="what-about-the-overfitting">What about the overfitting?</h3>
+<img src="overfitting.png" width="300px"/>
+</section><section>
+<h2 id="artificial-neural-networks-54">Artificial Neural Networks</h2>
 <h3 id="dealing-with-overfitting">Dealing with overfitting</h3>
 <ul>
 <li><em>Dropout</em> layers:
@@ -1018,13 +1036,13 @@ of the input example belonging to each of the classes</em> in my problem;</li>
 </ul>
 <center><a href="dropout.gif" target="_blank"><img src="dropout.gif" width="500px"/></a></center>
 </section><section>
-<h2 id="artificial-neural-networks-54">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-55">Artificial Neural Networks</h2>
 <h3 id="dealing-with-overfitting-1">Dealing with overfitting</h3>
 <ul>
 <li><em>Dropout</em> layers:</li>
 </ul>
 <pre><code class="language-python"># Drop half of the neurons outputs from the previous layer
-model.add(Dropout(0.5))
+model &lt;- model %&gt;% layer_dropout(rate = 0.5)
 </code></pre>
 
 
@@ -1036,7 +1054,7 @@ model.add(Dropout(0.5))
 </ul>
 </aside>
 </section><section>
-<h2 id="artificial-neural-networks-55">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-56">Artificial Neural Networks</h2>
 <h3 id="larger-example">Larger Example</h3>
 <ul>
 <li>The <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset: database of handwritten digits;</li>
@@ -1044,7 +1062,7 @@ model.add(Dropout(0.5))
 </ul>
 <center><a href="mnist.png" target="_blank"><img src="mnist.png" width="500px"/></a></center>
 </section><section>
-<h2 id="artificial-neural-networks-56">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-57">Artificial Neural Networks</h2>
 <h3 id="the-mnist-mlp">The MNIST MLP</h3>
 <ul>
 <li>Try to improve the classification results using <a href="https://colab.research.google.com/drive/1AnGJz_R0PJF0d83ye_3y7NPGuX5YipBi" target="_blank">this notebook</a>:</li>
@@ -1058,7 +1076,7 @@ model.add(Dropout(0.5))
 </li>
 </ul>
 </section><section>
-<h2 id="artificial-neural-networks-57">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-58">Artificial Neural Networks</h2>
 <h3 id="the-mnist-mlp-1">The MNIST MLP</h3>
 <ul>
 <li>
@@ -1086,26 +1104,26 @@ model.add(Dropout(0.5))
   
 <h1 id="span-stylecolorfff-the-exercisespan"><span style="color:#fff;"> The Exercise</span></h1>
 </section><section>
-<h2 id="artificial-neural-networks-58">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-59">Artificial Neural Networks</h2>
 <h3 id="the-exercise">The Exercise</h3>
 <center><a href="atlas_particle_shower.jpg" target="_blank"><img src="atlas_particle_shower.jpg" width="500px"/></a></center>
 </section><section>
-<h2 id="artificial-neural-networks-59">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-60">Artificial Neural Networks</h2>
 <h3 id="the-exercise-1">The Exercise</h3>
 <center><a href="jet-images.png" target="_blank"><img src="jet-images.png" width="500px"/></a></center>
 </section><section>
-<h2 id="artificial-neural-networks-60">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-61">Artificial Neural Networks</h2>
 <h3 id="the-exercise-2">The Exercise</h3>
 <ul>
 <li>Quantum Chromodynamics</li>
 </ul>
 <center><a href="qcd.png" target="_blank"><img src="qcd.png" width="500px"/></a></center>
 </section><section>
-<h2 id="artificial-neural-networks-61">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-62">Artificial Neural Networks</h2>
 <h3 id="signal-vs-background">Signal VS Background</h3>
 <center><a href="backgroundVSsignal.png" target="_blank"><img src="backgroundVSsignal.png" width="700px"/></a></center>
 </section><section>
-<h2 id="artificial-neural-networks-62">Artificial Neural Networks</h2>
+<h2 id="artificial-neural-networks-63">Artificial Neural Networks</h2>
 <h3 id="signal-vs-background-1">Signal VS Background</h3>
 <p>Run this <a href="https://colab.research.google.com/drive/14sdqWQdvjaxi_IZXLtrAzCP4emEpmqa-" target="_blank">Jupyter Notebook</a> for performing the Jet Classification.</p>
 </section>
