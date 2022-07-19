@@ -283,19 +283,19 @@ How about addind the <em>Intercept</em>?
 * Focus on enabling <em>fast experimentation</em>;
   * Go from idea to result with the <em>least possible delay</em>;
 * Runs seamlessly on <em>CPU</em> and <em>GPU</em>;
-* Compatible with: <em>Python 2.7-3.6</em>;
+* Compatible with: <em>Python 2.7-3.8</em> and <em>R</em>;
 
 ---
 ## Artificial Neural Networks
 ### The <a href="https://keras.io" target="_blank">Keras framework</a>
 * Use the implementation of the tensorflow:
   * Create a sequential model (perceptron)
-```python
-# Import the Sequential model
-from tensorflow.keras.models import Sequential
+```R
+# Import the Keras Library
+library(keras)
 
 # Instantiate the model
-model = Sequential()
+model <- keras_model_sequential()
 ```
 
 ---
@@ -304,11 +304,9 @@ model = Sequential()
 * Create a single layer with a single neuron:
   * `units` represent the number of neurons;
 ```python
-# Import the Dense layer
-from tensorflow.keras.layers import Dense
-
+# Use the Dense layer
 # Add a forward layer to the model 
-model.add(Dense(units=1, input_dim=2))
+model <- model %>% layer_dense(units = 1, input_shape = c(2))
 ```
 
 {{% note %}}
@@ -321,14 +319,15 @@ model.add(Dense(units=1, input_dim=2))
 * Compile and train the model
   * The compilation creates a <a
     href="https://medium.com/tebs-lab/deep-neural-networks-as-computational-graphs-867fcaa56c9" target="_blank">computational graph</a> of the training;
-```python
+```R
 # Specify the loss function (error) and the optimizer 
 #   (a variation of the gradient descent method)
-model.compile(loss="mean_squared_error", optimizer="sgd")
+
+model %>% compile(loss = "mean_squared_error", optimizer = "sgd")
 
 # Fit the model using the train data and also 
 #   provide the expected result
-model.fit(x=train_data_X, y=train_data_Y)
+model %>% fit(x = train_data_X, y = train_data_Y, epochs = 5)
 ```
 {{% note %}}
 * Computational Graphs:
@@ -337,26 +336,46 @@ model.fit(x=train_data_X, y=train_data_Y)
   * Lots of operations can run in parallel;
     * Example: $(x*y)+(w*z)$
   * Makes it easier to create an auto diferentiation strategy;
+  * We can user `verbose=1` to increase the output;
 {{% /note %}}
 
 ---
 ## Artificial Neural Networks
 ### The <a href="https://keras.io" target="_blank">Keras framework</a>
 * Evaluate the quality of the model:
-```python
+```r
 # Use evaluate function to get the loss and other metrics that the framework 
 #  makes available 
-loss_and_metrics = model.evaluate(train_data_X, train_data_Y)
-print(loss_and_metrics)
-#0.4043288230895996
+model %>% 
+  evaluate(test_data_X, test_data_Y)
+
+## $loss
+## [1] 0.0833252
+## 
+## $accuracy
+## [1] 0.9741
+
 
 # Do a prediction using the trained model
-prediction = model.predict(train_data_X)
-print(prediction)
+predictions <- predict(model, mnist$test$x)
+head(predictions, 2)
 # [[-0.25007164]
-#  [ 0.24998784]
-#  [ 0.24999022]
 #  [ 0.7500497 ]]
+```
+{{% note %}}
+We can use verbose during the evaluate
+{{% /note %}}
+
+---
+## Artificial Neural Networks
+### Activation Functions
+* Describes <em>whether or not the neuron fires</em>, i.e., if it forwards its value for the next neuron layer;
+* Historically they translated the output of the neuron into either 1 (On/active) or 0 (Off) - Step Function:
+```r
+if(prediction[i]>0.5){
+  return 1
+}
+return 0
 ```
 
 ---
@@ -365,7 +384,7 @@ print(prediction)
 #### Exercise:
 Run the example of the Jupyter notebook:
 <br />
-<a href="https://colab.research.google.com/drive/1hNOR60jfru-b0Vb-ec-Y_yF9pyuy8Wtj" target="_blank">Perceptron - OR</a>
+<a href="https://colab.research.google.com/drive/1SlxcqCXu1PteSxLyy4x-aXZrEhFcdhS7?usp=sharing" target="_blank">Perceptron - OR</a>
 
 ---
 ## Artificial Neural Networks
@@ -380,15 +399,35 @@ $x_1$|$x_2$|$y$
 1    |0    |0
 1    |1    |1
 
+* <a href="https://colab.research.google.com/drive/10O_OwdFJj9OCNVJJSp8n3_vHhHWrmrbp?usp=sharing" target="_blank">My solution</a>.
+
 ---
 ## Artificial Neural Networks
-### Activation Functions
-* Describes <em>whether or not the neuron fires</em>, i.e., if it forwards its value for the next neuron layer;
-* Historically they translated the output of the neuron into either 1 (On/active) or 0 (Off) - Step Function:
-```python
-if prediction[i]>0.5: return 1
-return 0
+### Perceptron - What it <em>can't do</em>!
+
+* The <em>XOR</em> function:
+
+<center><img src="xor1.png" width="500px"/></center>
+
+Check-out what happens when we try to use the same architecture for solving the
+XOR function <a
+href="https://colab.research.google.com/drive/1g9Sl6XngxF_TEJakdiU1DpOHAKpfwoAR?usp=sharing"
+target="_blank">here</a>.
+
+---
+## Artificial Neural Networks
+### Understanding the training
+* Plotting the training progress of the XOR ANN:
+```r
+history <- model %>% fit(x_train, y_train, epochs = 200)
+plot(model)
 ```
+<center><a href="loss_trainning2.png" target="_blank"><img src="loss_trainning2.png" width="250px" /></a></center>
+
+{{% note %}}
+* This is called the <em>learning curve</em>;
+* In the case of the XOR. <em>What is wrong with that?</em>
+{{% /note %}}
 
 ---
 ## Artificial Neural Networks
@@ -429,15 +468,8 @@ and no), won't help us to achieve this objective.
 ---
 ## Artificial Neural Networks
 ### The Bias
-<center><img src="bias2.png" width="600px"/></center>
-
----
-## Artificial Neural Networks
-### Perceptron - What it <em>can't do</em>!
-
-* The <em>XOR</em> function:
-
-<center><img src="xor1.png" width="650px"/></center>
+Give even more power to our model
+<center><img src="bias2.png" width="450px"/></center>
 
 ---
 ## Artificial Neural Networks
@@ -476,24 +508,6 @@ Now, there are 2 hyperplanes, that when put together, can perfectly separate the
 
 {{% /note %}}
 
----
-## Artificial Neural Networks
-### Perceptron - Solving the XOR problem
-* Implementing an ANN that can solve the XOR problem:
-  * Add a new layer with a larger number of neurons:
-
-```python
-...
-#Create a layer with 4 neurons as output
-model.add(Dense(units=4), activation="sigmoid", input_dim=2)
-
-# Connect to the first layer that we defined
-model.add(Dense(units=1, activation="sigmoid")
-```
-
-{{% note %}}
-Train for little steps and then increase the number of epochs
-{{% /note %}}
 
 ---
 ## Artificial Neural Networks
@@ -514,10 +528,11 @@ $$y = f^{(3)}(f^{(2)}(f^{(1)}(x)))$$
 ## Artificial Neural Networks
 ### Understanding the training  
 * Plot the architecture of the network:
-```python
-tf.keras.utils.plot_model(model, show_shapes=True, show_layer_names=False)
+```r
+plot(model, show_shapes=T)
 ```
-<center><img src="nn_architecture.png" width="250px" /></center>
+<center><img src="nn_architecture.png" width="300px" /></center>
+
 
 {{% note %}}
 The ? means that they take as much examples as possible;
@@ -525,23 +540,25 @@ The ? means that they take as much examples as possible;
 
 ---
 ## Artificial Neural Networks
-### Understanding the training
-* Plotting the training progress of the XOR ANN:
-```python
-history = model.fit(x=X_data, y=Y_data, epochs=2500, verbose=0)
-import matplotlib.pyplot as plt
-plt.plot(history.history['loss'])
-plt.title('Model Training Progression')
-plt.ylabel('Loss')
-plt.xlabel('Epoch')
-plt.legend(['Loss'], loc='upper left')
-plt.show()
+### Perceptron - Solving the XOR problem
+* Implementing an ANN that can solve the XOR problem:
+  * Add a new layer with a larger number of neurons:
+
+```r
+...
+#Create an extra layer with 4 neurons and use the sigmoid activation function:
+model <- model %>% layer_dense(units=8, input_shape=c(2), activation="sigmoid")
+
+# Connect to the first layer that we defined and also apply the sigmoid
+model <- model %>% layer_dense(units=1, activation="sigmoid")
 ```
-<center><a href="loss_trainning2.png" target="_blank"><img src="loss_trainning2.png" width="200px" /></a></center>
+
+Let's check if that solves our XOR problem <a
+href="https://colab.research.google.com/drive/1cs3--kdfF5nXGgWdTFMQ73r_9k7I_pO1?usp=sharing"
+target="_blank">here</a>.
 
 {{% note %}}
-* This is called the <em>learning curve</em>;
-* In the case of the XOR. <em>What is wrong with that?</em>
+Train for little steps and then increase the number of epochs
 {{% /note %}}
 
 ---
@@ -585,7 +602,9 @@ plt.show()
   * <a href="sgd.gif" target="_blank">Stochastic Gradient Descent</a>: updates at each input;
   * <a href="minibatch.gif" target="_blank">Minibatch Gradient Descent</a>: updates after reading a batch of examples;
 <br /><br />
+
 <center>
+
 ###### Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.
 </center>
 
@@ -603,7 +622,9 @@ Minibatch:
 * <a href="adagrad.gif" target="_blank">Adagrad</a>, <a href="rmsprop.gif" target="_blank">RMSProp</a>, <a href="adam.gif" target="_blank">Adam</a>;
 ###### 
 <br /><br />
+
 <center>
+
 ###### Animations taken from Vikashraj Luhaniwal <a href="https://towardsdatascience.com/why-gradient-descent-isnt-enough-a-comprehensive-introduction-to-optimization-algorithms-in-59670fd5c096" target = "_blank">post</a>.
 </center>
 
@@ -618,10 +639,10 @@ Minibatch:
 ## Artificial Neural Networks
 ### Multilayer Perceptron - XOR
 * Try another optimizer:
-```python
-model.compile(loss="mean_squared_error", optimizer="adam")
+```r
+model %>% compile(loss = "mean_squared_error", optimizer = "rmsprop")
 ```
-* My <a href="https://colab.research.google.com/drive/1hpRRtJuC78uPXJE68oOjRaM03LVV_rgo" target="_blank">solution</a>
+My <a href="https://colab.research.google.com/drive/1DNN2PCoOrGoYQv7skznLNm6MZ5-Mk24m?usp=sharing" target="_blank">solution</a>
 
 ---
 ## Artificial Neural Networks
@@ -674,6 +695,11 @@ model.add(Dense(2, activation="softmax"))
 
 ---
 ## Artificial Neural Networks
+### What about the overfitting?
+<img src="overfitting.png" width="300px"/>
+
+---
+## Artificial Neural Networks
 ### Dealing with overfitting
 * <em>Dropout</em> layers:
   * Randomly *disable* some of the neurons during the training passes;
@@ -686,7 +712,7 @@ model.add(Dense(2, activation="softmax"))
 * <em>Dropout</em> layers:
 ```python
 # Drop half of the neurons outputs from the previous layer
-model.add(Dropout(0.5))
+model <- model %>% layer_dropout(rate = 0.5)
 ```
 
 {{% note %}}
