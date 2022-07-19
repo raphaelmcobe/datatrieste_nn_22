@@ -731,7 +731,7 @@ model <- model %>% layer_dropout(rate = 0.5)
 ---
 ## Artificial Neural Networks
 ### The MNIST MLP
-* Try to improve the classification results using <a href="https://colab.research.google.com/drive/1AnGJz_R0PJF0d83ye_3y7NPGuX5YipBi" target="_blank">this notebook</a>:
+* Try to improve the classification results using <a href="https://colab.research.google.com/drive/1kXGC4qIcaa8-ui9OByNBT25nZH7yycYr?usp=sharing" target="_blank">this notebook</a>:
 * Things to try:
   * Increase the number of neurons at the first layer;
   * Change the optimizer and the loss function;
@@ -741,18 +741,21 @@ model <- model %>% layer_dropout(rate = 0.5)
 ---
 ## Artificial Neural Networks
 ### The MNIST MLP
-* Try to improve the classification results using <a href="https://colab.research.google.com/drive/1AnGJz_R0PJF0d83ye_3y7NPGuX5YipBi" target="_blank">this notebook</a>:
+* Try to improve the classification results using <a href="https://colab.research.google.com/drive/1kXGC4qIcaa8-ui9OByNBT25nZH7yycYr?usp=sharing" target="_blank">this notebook</a>:
 * Things to try:
   * Try addind `Dropout` layers;
   * Increase the number of `epochs`;
   * Try to <em>normalize the data</em>!
 
 * What is the best accuracy?
-* <a href="https://colab.research.google.com/drive/1LnkhSA7XbEWMNdaebOXxsOENr6m-0vpZ" target="_blank">My solution</a>.
+* <a href="https://colab.research.google.com/drive/1PYgAO-u04vOPCm-XyZPl_ck4RPJ-Jeag?usp=sharing" target="_blank">My solution</a>.
+
+---
+# The Exercises
 
 ---
 {{<slide background-image="cms.png">}}
-# <span style="color:#fff;"> The Exercise</span>
+# <span style="color:#fff;"> Particle Physics</span>
 
 ---
 ## Artificial Neural Networks
@@ -782,4 +785,4 @@ model <- model %>% layer_dropout(rate = 0.5)
 ## Artificial Neural Networks
 ### Signal VS Background
 
-Run this <a href="https://colab.research.google.com/drive/14sdqWQdvjaxi_IZXLtrAzCP4emEpmqa-" target="_blank">Jupyter Notebook</a> for performing the Jet Classification.
+Run this <a href="https://colab.research.google.com/drive/1zauFbl7qwyv4wXFp1K5ldfXxD_1QzO6R?usp=sharing" target="_blank">Jupyter Notebook</a> for performing the Jet Classification.
