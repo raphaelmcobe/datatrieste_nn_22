@@ -572,6 +572,8 @@ Train for little steps and then increase the number of epochs
 * That eventually happens because of a bad optimization function;
 * Imagine that you could add momentum to the gradient descent - probably it
   could continue updating;
+* In the XOR case, there are 16 local minimums that have the highest conversion
+  if the weights are initialized between 0.5 and 1. 
 {{% /note %}}
 
 ---
@@ -691,6 +693,10 @@ model.add(Dense(2, activation="softmax"))
 {{% note %}}
 *  As the correct predicted probability decreases, however, the log loss increases rapidly:
   * In case the model has to answer 1, but it does with a very low probability;
+
+* If you have events and probabilities, how likely is it that the events happen based on the probabilities? 
+  * If it is very likely, we have a small cross-entropy and if it is not likely we have a high cross-entropy. 
+
 {{% /note %}}
 
 ---
@@ -751,7 +757,7 @@ model <- model %>% layer_dropout(rate = 0.5)
 * <a href="https://colab.research.google.com/drive/1PYgAO-u04vOPCm-XyZPl_ck4RPJ-Jeag?usp=sharing" target="_blank">My solution</a>.
 
 ---
-# The Exercises
+# Group Projects
 
 ---
 {{<slide background-image="cms.png">}}
@@ -759,19 +765,19 @@ model <- model %>% layer_dropout(rate = 0.5)
 
 ---
 ## Artificial Neural Networks
-### The Exercise
+### The Particle Physics Project
 
 <center><a href="atlas_particle_shower.jpg" target="_blank"><img src="atlas_particle_shower.jpg" width="500px"/></a></center>
 
 ---
 ## Artificial Neural Networks
-### The Exercise
+### The Particle Physics Project
 
 <center><a href="jet-images.png" target="_blank"><img src="jet-images.png" width="500px"/></a></center>
 
 ---
 ## Artificial Neural Networks
-### The Exercise
+### The Particle Physics Project
 * Quantum Chromodynamics
 <center><a href="qcd.png" target="_blank"><img src="qcd.png" width="500px"/></a></center>
 
@@ -786,3 +792,20 @@ model <- model %>% layer_dropout(rate = 0.5)
 ### Signal VS Background
 
 Run this <a href="https://colab.research.google.com/drive/1zauFbl7qwyv4wXFp1K5ldfXxD_1QzO6R?usp=sharing" target="_blank">Jupyter Notebook</a> for performing the Jet Classification.
+
+---
+
+{{<slide background-image="COVID19_CT.jpg">}}
+# <span style="color:#ff0000;">COVID19 Chest CT Image Processing</span>
+
+---
+## Artificial Neural Networks
+### COVID19 Diagnosis
+
+<center><a href="COVIDCT1.png" target="_blank"><img src="COVIDCT1.png" width="500px"/></a></center>
+
+---
+## Artificial Neural Networks
+### COVID19 Diagnosis
+
+Run this <a href="https://colab.research.google.com/drive/1S1UQxmDHewXrR_C69mZmoXaP57nGH2X6?usp=sharing" target="_blank">Jupyter Notebook</a> for performing the CT Image Classification.
