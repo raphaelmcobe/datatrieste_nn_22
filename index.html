@@ -859,6 +859,8 @@ target="_blank">here</a>.</p>
 <li>That eventually happens because of a bad optimization function;</li>
 <li>Imagine that you could add momentum to the gradient descent - probably it
 could continue updating;</li>
+<li>In the XOR case, there are 16 local minimums that have the highest conversion
+if the weights are initialized between 0.5 and 1.</li>
 </ul>
 </aside>
 </section><section>
@@ -1016,8 +1018,18 @@ of the input example belonging to each of the classes</em> in my problem;</li>
 
 
 <aside class="notes"><ul>
-<li>As the correct predicted probability decreases, however, the log loss increases rapidly:</li>
-<li>In case the model has to answer 1, but it does with a very low probability;</li>
+<li>
+<p>As the correct predicted probability decreases, however, the log loss increases rapidly:</p>
+</li>
+<li>
+<p>In case the model has to answer 1, but it does with a very low probability;</p>
+</li>
+<li>
+<p>If you have events and probabilities, how likely is it that the events happen based on the probabilities?</p>
+<ul>
+<li>If it is very likely, we have a small cross-entropy and if it is not likely we have a high cross-entropy.</li>
+</ul>
+</li>
 </ul>
 </aside>
 </section><section>
@@ -1098,7 +1110,7 @@ model &lt;- model %&gt;% layer_dropout(rate = 0.5)
 </li>
 </ul>
 </section><section>
-<h1 id="the-exercises">The Exercises</h1>
+<h1 id="group-projects">Group Projects</h1>
 </section>
 
 <section data-noprocess data-shortcode-slide
@@ -1107,15 +1119,15 @@ model &lt;- model %&gt;% layer_dropout(rate = 0.5)
 <h1 id="span-stylecolorfff-particle-physicsspan"><span style="color:#fff;"> Particle Physics</span></h1>
 </section><section>
 <h2 id="artificial-neural-networks-59">Artificial Neural Networks</h2>
-<h3 id="the-exercise">The Exercise</h3>
+<h3 id="the-particle-physics-project">The Particle Physics Project</h3>
 <center><a href="atlas_particle_shower.jpg" target="_blank"><img src="atlas_particle_shower.jpg" width="500px"/></a></center>
 </section><section>
 <h2 id="artificial-neural-networks-60">Artificial Neural Networks</h2>
-<h3 id="the-exercise-1">The Exercise</h3>
+<h3 id="the-particle-physics-project-1">The Particle Physics Project</h3>
 <center><a href="jet-images.png" target="_blank"><img src="jet-images.png" width="500px"/></a></center>
 </section><section>
 <h2 id="artificial-neural-networks-61">Artificial Neural Networks</h2>
-<h3 id="the-exercise-2">The Exercise</h3>
+<h3 id="the-particle-physics-project-2">The Particle Physics Project</h3>
 <ul>
 <li>Quantum Chromodynamics</li>
 </ul>
@@ -1128,6 +1140,20 @@ model &lt;- model %&gt;% layer_dropout(rate = 0.5)
 <h2 id="artificial-neural-networks-63">Artificial Neural Networks</h2>
 <h3 id="signal-vs-background-1">Signal VS Background</h3>
 <p>Run this <a href="https://colab.research.google.com/drive/1zauFbl7qwyv4wXFp1K5ldfXxD_1QzO6R?usp=sharing" target="_blank">Jupyter Notebook</a> for performing the Jet Classification.</p>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      data-background-image="COVID19_CT.jpg">
+  
+<h1 id="span-stylecolorff0000covid19-chest-ct-image-processingspan"><span style="color:#ff0000;">COVID19 Chest CT Image Processing</span></h1>
+</section><section>
+<h2 id="artificial-neural-networks-64">Artificial Neural Networks</h2>
+<h3 id="covid19-diagnosis">COVID19 Diagnosis</h3>
+<center><a href="COVIDCT1.png" target="_blank"><img src="COVIDCT1.png" width="500px"/></a></center>
+</section><section>
+<h2 id="artificial-neural-networks-65">Artificial Neural Networks</h2>
+<h3 id="covid19-diagnosis-1">COVID19 Diagnosis</h3>
+<p>Run this <a href="https://colab.research.google.com/drive/1S1UQxmDHewXrR_C69mZmoXaP57nGH2X6?usp=sharing" target="_blank">Jupyter Notebook</a> for performing the CT Image Classification.</p>
 </section>
 
 </div>
